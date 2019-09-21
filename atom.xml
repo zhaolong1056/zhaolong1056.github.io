@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-09-21T20:33:11.157Z</updated>
+  <updated>2019-09-21T23:05:57.333Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,47 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python循环-for</title>
+    <link href="http://yoursite.com/2019/09/22/python%E5%BE%AA%E7%8E%AF-for/"/>
+    <id>http://yoursite.com/2019/09/22/python循环-for/</id>
+    <published>2019-09-21T21:54:17.000Z</published>
+    <updated>2019-09-21T23:05:57.333Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h4><ul><li></li><li>Python中的for循环通过一个<strong>序列</strong>中的<strong>每个值</strong>来进行<strong>迭代</strong></li><li>知道循环次数的</li><li><strong>计数器控制的循环</strong></li><li>不需要使用变量来控制循环</li><li>迭代环境，使用的是 <strong>可迭代的对象</strong><ul><li>列表</li><li>元组</li><li>字典</li><li>集合</li><li>字符串</li></ul></li><li>for循环<strong>处理速度稍微快点</strong><ul><li>主要是<strong>计数器参与运算的</strong>，不需要在循环体中再次编写</li></ul></li><li>for 循环的参数是<strong>正整数</strong>–计数器<a id="more"></a><h5 id="range"><a href="#range" class="headerlink" title="range"></a>range</h5></li><li>an immutable sequence of numbers 不可变的数字序列，用于For循环中</li><li>两种用法<ul><li><code>class range(stop)</code> </li><li><code>class range(start, stop[, step])</code></li></ul></li><li>函数的参数必须是<strong>整数</strong></li><li>省略step参数，则默认为1.省略start参数，默认为0.如果step为零，则引发<code>ValueError</code></li><li>不包含 stop</li><li>For a positive step, the contents of a range r are determined by the formula <code>r[i] = start + step*i where i &gt;= 0 and r[i] &lt; stop</code>.</li><li>For a negative step, the contents of the range are still determined by the formula <code>r[i] = start + step*i</code>, but the constraints are <code>i &gt;= 0 and r[i] &gt; stop</code>.</li><li>负指数，被解释为从正指数确定的序列末尾开始索引</li><li>负方向：表示的是从start开始，每次减去abs(step)的数值,而且 start &gt; stop</li><li>本质上，是从start开始到stop-1截至，按照step取值<ul><li>当step为正数，start&lt;stop,<code>做加法</code></li><li>当step为负数，start&gt;stop，<code>做减法</code></li><li>start != stop</li><li>i!= 0  </li></ul></li></ul><h5 id="else"><a href="#else" class="headerlink" title="else"></a>else</h5><ul><li>for - else：<ul><li><strong>恰好即将跳出循环</strong></li><li>else 的条件是 <strong>最后一个条件</strong></li><li>结合for循环，会将<strong>最后一个值</strong>执行for语句和else语句<strong>两次</strong></li></ul></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>): <span class="comment"># for仅仅使用整数</span></span><br><span class="line">    print(i)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(i)  <span class="comment">#</span></span><br></pre></td></tr></table></figure><h5 id="for循环与while循环"><a href="#for循环与while循环" class="headerlink" title="for循环与while循环"></a>for循环与while循环</h5><ul><li>任何for循环都可以转化为while循环</li><li>但是 while循环不一定能转化成for循环<ul><li>while 循环可以处理<strong>实数</strong></li><li>while 循环可以处理<strong>死循环</strong></li></ul></li></ul><h5 id="for-循环的嵌套"><a href="#for-循环的嵌套" class="headerlink" title="for 循环的嵌套"></a>for 循环的嵌套</h5><ul><li>嵌套循环可能会花费很长的时间来允许</li><li>用途<ul><li>显示<strong>列表</strong></li><li>平面</li></ul></li></ul><h5 id="break-continue"><a href="#break-continue" class="headerlink" title="break continue"></a>break continue</h5><ul><li>break 中断循环，直接跳出循环<ul><li>不会执行else语句</li><li><strong>结束多余</strong>的循环</li></ul></li><li>continue <strong>结束本次循环</strong>，继续下一次循环<ul><li>忽略continue之后的代码，返回循环头部继续一下次循环</li><li>主要起到 <strong>筛选作用</strong></li></ul></li><li>break 和 continue <strong>必须搭配 if</strong> 进行判断</li></ul><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><h5 id="循环的三种方式"><a href="#循环的三种方式" class="headerlink" title="循环的三种方式"></a>循环的三种方式</h5><ol><li>while</li><li>for</li><li>死循环+break</li></ol><h5 id="控制"><a href="#控制" class="headerlink" title="控制"></a>控制</h5><ul><li>break</li><li>continue</li></ul><h5 id="else-1"><a href="#else-1" class="headerlink" title="else"></a>else</h5><ul><li>for-else：<ul><li>即将跳出循环</li><li>对最后一个计数器<strong>再次处理</strong></li></ul></li><li>while-else:<ul><li>对 <strong>临界值</strong> 进行处理</li></ul></li></ul><h5 id="while-风格"><a href="#while-风格" class="headerlink" title="while 风格"></a>while 风格</h5><ul><li>设定循环次数，包含了<strong>循环终止条件</strong></li><li><strong>变量值发生变化</strong></li><li><code>while Ture if break</code></li><li>常见错误：忘记自增或则自减</li><li>可以处理<strong>浮点数</strong><ul><li>num - 数值 &lt; 0.000001</li></ul></li></ul><h5 id="for-风格"><a href="#for-风格" class="headerlink" title="for 风格"></a>for 风格</h5><ul><li>循环条件  <strong>计数器 整数</strong><ul><li>常使用 range <ul><li>range(100)</li><li>range(1,100,1)</li><li>range(100,1,-10)</li></ul></li><li>不包含第二个值</li><li>默认步长  1</li><li><strong>步长不能为0</strong> -&gt; for不能实现死循环</li></ul></li></ul><h5 id="时间统计"><a href="#时间统计" class="headerlink" title="时间统计"></a>时间统计</h5><ul><li>time.time() 返回当前时间，以<strong>秒</strong>为单位</li><li>做减法可以得到<strong>时间差</strong></li><li>time.sleep(5)<ul><li>暂停5秒</li></ul></li></ul><h5 id="变量交换"><a href="#变量交换" class="headerlink" title="变量交换"></a>变量交换</h5><ol><li>添加<strong>临时变量</strong>，交换变量</li><li>对称赋值 <code>a,b = b,a</code><ul><li>先计算=号右边的表达式</li><li>交换数据</li></ul></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;for循环&quot;&gt;&lt;a href=&quot;#for循环&quot; class=&quot;headerlink&quot; title=&quot;for循环&quot;&gt;&lt;/a&gt;for循环&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;li&gt;Python中的for循环通过一个&lt;strong&gt;序列&lt;/strong&gt;中的&lt;strong&gt;每个值&lt;/strong&gt;来进行&lt;strong&gt;迭代&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;知道循环次数的&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;计数器控制的循环&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;不需要使用变量来控制循环&lt;/li&gt;
+&lt;li&gt;迭代环境，使用的是 &lt;strong&gt;可迭代的对象&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;列表&lt;/li&gt;
+&lt;li&gt;元组&lt;/li&gt;
+&lt;li&gt;字典&lt;/li&gt;
+&lt;li&gt;集合&lt;/li&gt;
+&lt;li&gt;字符串&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;for循环&lt;strong&gt;处理速度稍微快点&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;主要是&lt;strong&gt;计数器参与运算的&lt;/strong&gt;，不需要在循环体中再次编写&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;for 循环的参数是&lt;strong&gt;正整数&lt;/strong&gt;–计数器&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="计算机,编程语言,Python" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80-Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
