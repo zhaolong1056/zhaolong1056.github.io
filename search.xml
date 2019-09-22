@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[python循环-for]]></title>
+    <url>%2F2019%2F09%2F22%2Fpython%E5%BE%AA%E7%8E%AF-for%2F</url>
+    <content type="text"><![CDATA[for循环 Python中的for循环通过一个序列中的每个值来进行迭代 知道循环次数的 计数器控制的循环 不需要使用变量来控制循环 迭代环境，使用的是 可迭代的对象 列表 元组 字典 集合 字符串 for循环处理速度稍微快点 主要是计数器参与运算的，不需要在循环体中再次编写 for 循环的参数是正整数–计数器 range an immutable sequence of numbers 不可变的数字序列，用于For循环中 两种用法 class range(stop) class range(start, stop[, step]) 函数的参数必须是整数 省略step参数，则默认为1.省略start参数，默认为0.如果step为零，则引发ValueError 不包含 stop For a positive step, the contents of a range r are determined by the formula r[i] = start + step*i where i &gt;= 0 and r[i] &lt; stop. For a negative step, the contents of the range are still determined by the formula r[i] = start + step*i, but the constraints are i &gt;= 0 and r[i] &gt; stop. 负指数，被解释为从正指数确定的序列末尾开始索引 负方向：表示的是从start开始，每次减去abs(step)的数值,而且 start &gt; stop 本质上，是从start开始到stop-1截至，按照step取值 当step为正数，start&lt;stop,做加法 当step为负数，start&gt;stop，做减法 start != stop i!= 0 else for - else： 恰好即将跳出循环 else 的条件是 最后一个条件 结合for循环，会将最后一个值执行for语句和else语句两次 1234for i in range(10): # for仅仅使用整数 print(i)else: print(i) # for循环与while循环 任何for循环都可以转化为while循环 但是 while循环不一定能转化成for循环 while 循环可以处理实数 while 循环可以处理死循环 for 循环的嵌套 嵌套循环可能会花费很长的时间来允许 用途 显示列表 平面 break continue break 中断循环，直接跳出循环 不会执行else语句 结束多余的循环 continue 结束本次循环，继续下一次循环 忽略continue之后的代码，返回循环头部继续一下次循环 主要起到 筛选作用 break 和 continue 必须搭配 if 进行判断 总结循环的三种方式 while for 死循环+break 控制 break continue else for-else： 即将跳出循环 对最后一个计数器再次处理 while-else: 对 临界值 进行处理 while 风格 设定循环次数，包含了循环终止条件 变量值发生变化 while Ture if break 常见错误：忘记自增或则自减 可以处理浮点数 num - 数值 &lt; 0.000001 for 风格 循环条件 计数器 整数 常使用 range range(100) range(1,100,1) range(100,1,-10) 不包含第二个值 默认步长 1 步长不能为0 -&gt; for不能实现死循环 时间统计 time.time() 返回当前时间，以秒为单位 做减法可以得到时间差 time.sleep(5) 暂停5秒 变量交换 添加临时变量，交换变量 对称赋值 a,b = b,a 先计算=号右边的表达式 交换数据]]></content>
+      <categories>
+        <category>计算机,编程语言,Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2019%2F09%2F22%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+</search>

@@ -10,10 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 3.9.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
-  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.0">
   <link rel="alternate" href="/atom.xml" title="夕阳西下，断肠人在天涯" type="application/atom+xml">
 
 <link rel="stylesheet" href="/css/main.css?v=7.4.0">
@@ -44,8 +41,8 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
       copy_button: '复制',
@@ -56,18 +53,18 @@
   };
 </script>
 
-  <meta name="description" content="赵龙的博客">
+  <meta name="description" content="自由飞翔的(&amp;gt;^ω^">
 <meta name="keywords" content="zhaolong,blog">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
 <meta property="og:url" content="http://yoursite.com/about/index.html">
 <meta property="og:site_name" content="夕阳西下，断肠人在天涯">
-<meta property="og:description" content="赵龙的博客">
+<meta property="og:description" content="自由飞翔的(&amp;gt;^ω^">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-09-21T21:26:46.512Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="about">
-<meta name="twitter:description" content="赵龙的博客">
+<meta name="twitter:description" content="自由飞翔的(&amp;gt;^ω^">
   <link rel="canonical" href="http://yoursite.com/about/">
 
 
@@ -205,6 +202,12 @@
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
   </ul>
 
     
@@ -228,6 +231,27 @@
   
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -320,8 +344,11 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/touxiang.jpg"
+      alt="zhao long">
   <p class="site-author-name" itemprop="name">zhao long</p>
-  <div class="site-description" itemprop="description">赵龙的博客</div>
+  <div class="site-description" itemprop="description">自由飞翔的(>^ω^<)喵</div>
 </div>
   <nav class="site-state motion-element">
       <div class="site-state-item site-state-posts">
@@ -367,6 +394,26 @@
   </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://github.com/zhaolong1056" title="https://github.com/zhaolong1056" rel="noopener" target="_blank">Github</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="/zhao.long1056@foxmail.com" title="zhao.long1056@foxmail.com">mail</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/ZhaoLong-study/" title="https://www.cnblogs.com/ZhaoLong-study/" rel="noopener" target="_blank">博客园</a>
+        </li>
+      
+    </ul>
+  </div>
 
       </div>
 
@@ -391,6 +438,29 @@
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
 
 
 
@@ -428,6 +498,8 @@
 
 
 
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
 
 
 
