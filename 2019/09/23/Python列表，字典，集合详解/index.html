@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.0">
+  <link rel="alternate" href="/atom.xml" title="夕阳西下，断肠人在天涯" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","unescape":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="列表详细  元组详细  集合详细  字典详细 迭代器object.hash(self)    * Called by built-in function hash() and for operations on members of hashed collections including set, frozenset, and dict.">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python列表，字典，集合详解">
+<meta property="og:url" content="http://yoursite.com/2019/09/23/Python列表，字典，集合详解/index.html">
+<meta property="og:site_name" content="夕阳西下，断肠人在天涯">
+<meta property="og:description" content="列表详细  元组详细  集合详细  字典详细 迭代器object.hash(self)    * Called by built-in function hash() and for operations on members of hashed collections including set, frozenset, and dict.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python列表，字典，集合详解/5cd91dcb.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python列表，字典，集合详解/11117d30.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python列表，字典，集合详解/58be7780.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python列表，字典，集合详解/61eaf59d.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python列表，字典，集合详解/998b897f.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python列表，字典，集合详解/c9321bf6.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python列表，字典，集合详解/37ed335f.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python列表，字典，集合详解/2eddd0a3.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python列表，字典，集合详解/18542041.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python列表，字典，集合详解/a035e139.png">
+<meta property="og:updated_time" content="2019-09-23T07:29:37.132Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python列表，字典，集合详解">
+<meta name="twitter:description" content="列表详细  元组详细  集合详细  字典详细 迭代器object.hash(self)    * Called by built-in function hash() and for operations on members of hashed collections including set, frozenset, and dict.">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/23/Python列表，字典，集合详解/5cd91dcb.png">
+  <link rel="canonical" href="http://yoursite.com/2019/09/23/Python列表，字典，集合详解/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Python列表，字典，集合详解 | 夕阳西下，断肠人在天涯</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">夕阳西下，断肠人在天涯</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">好好学习，天天向上</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/Python列表，字典，集合详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhao long">
+      <meta itemprop="description" content="自由飞翔的(>^ω^<)喵">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夕阳西下，断肠人在天涯">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Python列表，字典，集合详解
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-23 15:26:40 / 修改时间：15:29:37" itemprop="dateCreated datePublished" datetime="2019-09-23T15:26:40+08:00">2019-09-23</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="列表详细-元组详细-集合详细-字典详细-迭代器"><a href="#列表详细-元组详细-集合详细-字典详细-迭代器" class="headerlink" title="列表详细  元组详细  集合详细  字典详细 迭代器"></a>列表详细  元组详细  集合详细  字典详细 迭代器</h3><p>object.<strong>hash</strong>(self)<br>    * Called by built-in function hash() and for operations on members of hashed collections <strong>including set, frozenset, and dict</strong>.</p>
+<a id="more"></a>
+<p><code>hashable</code><br>    An object is hashable if it has a hash value which <strong>never changes</strong> during its lifetime<br>    (it needs a <strong>hash</strong>() method), and can be compared to other objects (it needs an <strong>eq</strong>() method).<br>    <strong>Hashable objects which compare equal must have the same hash value</strong>.<br>    Hashability makes an object usable as a dictionary key and a set member,<br>    because these <strong>data structures use the hash value internally.</strong><br>    hashable 可以用做dict的key和set的number，这些数字类型内部元素的可以hashbale</p>
+<pre><code>&gt; Most of Python’s immutable built-in objects are hashable;
+&gt; mutable containers (such as lists or dictionaries) are not; 
+&gt; immutable containers (such as tuples and frozensets) are only hashable if their elements are hashable.</code></pre><p>   不可变内置数据类型 是 hashable :str  frozenset<br>   可变容器类型 是 unhashable: list  dict    <code>unhashable type: &#39;set&#39;</code><br>   不可变容器类型元素是hashable的话，他们才是hashable：tuple fronzenset</p>
+<ul>
+<li><img src="/2019/09/23/Python列表，字典，集合详解/5cd91dcb.png" alt="哈希"><br>Most of Python’s immutable built-in objects are hashable; mutable containers (such as lists or dictionaries) are not; immutable containers (such as tuples and frozensets) are only hashable if their elements are hashable. Objects which are instances of user-defined classes are hashable by default. They all compare unequal (except with themselves), and their hash value is derived from their id().</li>
+</ul>
+<h4 id="list-列表"><a href="#list-列表" class="headerlink" title="list 列表"></a>list 列表</h4><h5 id="列表的构造"><a href="#列表的构造" class="headerlink" title="列表的构造"></a>列表的构造</h5><ol>
+<li>使用<strong>方括号</strong><code>[]</code><strong>表示空列表</strong></li>
+<li><strong>使用方括号<code>[]</code>,其中逗号<code>,</code>分割元素</strong></li>
+<li>使用<strong>列表解析</strong>，<code>[x for x in iterable]</code></li>
+<li>使用<strong>类型构造函数</strong>，<code>list()</code>或者<code>list(iterable)</code><ul>
+<li>使用构造函数构造列表，<strong>列表的元素和iterable的元素相同且顺序相同</strong></li>
+<li>没有参数，返回一个空列表<h5 id="内存结构"><a href="#内存结构" class="headerlink" title="内存结构"></a>内存结构</h5></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><img src="/2019/09/23/Python列表，字典，集合详解/11117d30.png" alt="常规的内存结构"></li>
+<li><img src="/2019/09/23/Python列表，字典，集合详解/58be7780.png" alt="list的内存结构"></li>
+<li>list是<strong>内存中的一段地址的集合</strong>，<strong>赋值是从一个地址的集合转到另一个地址的集合</strong><ul>
+<li><strong>字符串存放的是一个地址</strong>，<strong>list是一堆地址</strong></li>
+</ul>
+</li>
+<li><strong>list内部的存储的是元素的地址，通过索引进行操作，引用</strong></li>
+<li><strong>list内部的元素是可以变化的，可以添加元素，删除元素等操作，可以单独修改引用地址</strong></li>
+<li><strong>list内部的元素类型是不固定的，list只记录元素的地址，通过索引调用</strong></li>
+<li><strong>修改单独元素不会影响list的值，只有整体赋值才能影响list</strong>，也就是将list指向新的地址段</li>
+</ul>
+<h6 id="list特点"><a href="#list特点" class="headerlink" title="list特点"></a>list特点</h6><ul>
+<li>多个变量组成的集合，每个变量可以<strong>存储不同的地址</strong><ul>
+<li><strong>可以包含不同类型的变量地址</strong></li>
+</ul>
+</li>
+<li>对list中的元素进行增删改，不会影响list</li>
+<li><strong>每个元素都有自己的独立地址</strong></li>
+</ul>
+<h5 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h5><ul>
+<li><strong>从0开始，通过索引操作元素</strong>，修改元素</li>
+<li>索引：[0-len(list)-1] 或者 [0,-1]</li>
+<li>正向索引和负向索引<ul>
+<li>负向索引 <code>-m = len(list)-m</code></li>
+</ul>
+</li>
+<li>索引的切片操作[m,n] 包含m，不包含n</li>
+</ul>
+<h5 id="⚠-循环"><a href="#⚠-循环" class="headerlink" title="⚠ 循环"></a>⚠ 循环</h5><ol>
+<li>遍历元素  <code>for x in list:</code><ul>
+<li>x是元素的值，而不是元素，data = mylist[1]，元素的copy，副本</li>
+<li><strong>只能打印列表元素的值</strong></li>
+<li>不能对元素进行修改等操作</li>
+</ul>
+</li>
+<li>下标循环   <code>for i in range(len(list))</code><ul>
+<li>i – 是<strong>索引</strong></li>
+<li>list[i] 可以<strong>操作元素</strong>，包括打印输出，修改操作</li>
+</ul>
+</li>
+</ol>
+<h4 id="del"><a href="#del" class="headerlink" title="del"></a>del</h4><ul>
+<li>del 是关键字 属于<strong>声明</strong></li>
+<li>del是递归定义的，与定义赋值的方式非常相似</li>
+<li><strong>删除列表会自左向右递归删除每个目标</strong></li>
+<li>Deletion of a name removes the binding of that name from the local or global namespace, depending on whether the name occurs in a global statement in the same code block.</li>
+<li>删除名称将删除名称与本地或全变量的绑定</li>
+<li>相当于内存回收</li>
+<li>删除list的元素的时候，会出现索引越界的问题 del list[1]</li>
+<li><img src="/2019/09/23/Python列表，字典，集合详解/61eaf59d.png" alt="删除索引越界"><ul>
+<li>添加break语句，不会出现越界的问题</li>
+</ul>
+</li>
+<li><strong>删除一个元素之后，索引及时变化，会向左移动</strong><ul>
+<li>list是一个比较紧凑的数据结构</li>
+</ul>
+</li>
+</ul>
+<h5 id="列表的运算符"><a href="#列表的运算符" class="headerlink" title="列表的运算符"></a>列表的运算符</h5><ol>
+<li>in / not in<ul>
+<li>成员运算符，判断是否存在与列表中</li>
+<li>只会判断第一层的元素</li>
+<li>True False</li>
+</ul>
+</li>
+<li>+<ul>
+<li>列表的<strong>元素拼接</strong></li>
+<li>归并</li>
+</ul>
+</li>
+<li>*<ul>
+<li>列表的<strong>元素重复</strong></li>
+</ul>
+</li>
+</ol>
+<h4 id="列表的嵌套"><a href="#列表的嵌套" class="headerlink" title="列表的嵌套"></a>列表的嵌套</h4><ul>
+<li>列表的<strong>元素是列表</strong></li>
+<li><strong>嵌套列表的访问需要使用嵌套for语句</strong></li>
+<li>表示<strong>矩阵</strong></li>
+<li>常见的嵌套列表是<strong>单个元素和列表元素同时存在</strong>，打印时小心处理,str有索引，但是输出不合理，int没有索引</li>
+</ul>
+<h5 id="isinstance-object-classinfo"><a href="#isinstance-object-classinfo" class="headerlink" title="isinstance(object, classinfo)"></a>isinstance(object, classinfo)</h5><ul>
+<li>判断object是否是classinfo的实例</li>
+<li>Return true if the <strong>object argument is an instance of the classinfo argument</strong>, or of a (direct, indirect or virtual) subclass thereof.</li>
+</ul>
+<h5 id="列表的常见方法"><a href="#列表的常见方法" class="headerlink" title="列表的常见方法"></a>列表的常见方法</h5><ul>
+<li>Lists implement all of the common and mutable sequence operations.</li>
+<li><strong>列表实现所有的常见和可变序列操作</strong></li>
+<li>支持基本的序列操作</li>
+</ul>
+<p>1.append()<br>    * 添加元素到最后一个位置<br>    * <strong>把参数当作一个元素</strong></p>
+<ol start="2">
+<li>index()<ul>
+<li>查找第一个出现的索引</li>
+<li><strong>只会查找list的元素，不会进入元素内部查找</strong></li>
+</ul>
+</li>
+<li>count()<ul>
+<li>统计元素出现的次数</li>
+</ul>
+</li>
+<li>reverse()<ul>
+<li>将列表元素反转</li>
+<li>顺序反转，<strong>不排序</strong></li>
+</ul>
+</li>
+<li>sort(*, key=None, reverse=False) <ul>
+<li>按照元素的大小进行排序</li>
+<li>reverse=True 从大到小</li>
+<li>不合适嵌套的列表</li>
+</ul>
+</li>
+<li>clear()<ul>
+<li>序列的操作</li>
+<li>清空列表</li>
+</ul>
+</li>
+<li>pop()<ul>
+<li>弹出最后一个元素</li>
+<li>返回最后一个元素，并且列表也会发生变化</li>
+</ul>
+</li>
+<li>remove()<ul>
+<li>删除列表中的默认元素</li>
+<li>没有返回值</li>
+</ul>
+</li>
+<li>insert() <ul>
+<li>相当于 s[i:i] = [x])</li>
+<li><strong>在索引位置插入元素，之前的后移</strong></li>
+</ul>
+</li>
+</ol>
+<h5 id="list的拷贝"><a href="#list的拷贝" class="headerlink" title="list的拷贝"></a>list的拷贝</h5><ul>
+<li>python是地址赋值，地址引用</li>
+<li>在list中<ul>
+<li><code>=</code>简单的地址引用</li>
+<li><strong>两个变量指向同一个list</strong></li>
+<li>is -&gt; True</li>
+<li><img src="/2019/09/23/Python列表，字典，集合详解/998b897f.png" alt="引用赋值"></li>
+<li>节约内存</li>
+<li>数据共享，一个修改，另一个变量的值也发生变化了</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>shadow copy 浅拷贝<ul>
+<li>s.copy()</li>
+<li>creates a shallow copy of s (same as s[:])</li>
+<li>浅拷贝  类似第一层的切片</li>
+<li>第二层列表共享</li>
+<li><img src="/2019/09/23/Python列表，字典，集合详解/c9321bf6.png" alt="浅拷贝"></li>
+<li>和 copy库中的copy.copy 功能一致</li>
+</ul>
+</li>
+<li>deep copy 深拷贝<ul>
+<li>递归拷贝对象</li>
+<li>所有的数据都保存为副本</li>
+<li>数据之间独立，不共享</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>浅复制和深复制之间的区别<strong>仅与复合对象</strong>（包含其他对象的对象，如列表或类实例）相关</li>
+<li>A shallow copy constructs a new compound object and then (to the extent possible) <strong>inserts references into it</strong> to the objects found in the original.</li>
+<li>A deep copy constructs a new compound object and then, <strong>recursively, inserts copies into it</strong> of the objects found in the original.</li>
+<li>浅拷贝是将它的<strong>引用</strong>插入到原始对象中</li>
+<li>深拷贝是<strong>递归方式将复制对象</strong>插入到原始对象中找到的对象<ul>
+<li>深拷贝会复制它可能复制的所有内容</li>
+<li>递归对象（直接或间接包含对自身的引用的复合对象）可能会导致递归循环。</li>
+</ul>
+</li>
+</ul>
+<h4 id="tuple-元组"><a href="#tuple-元组" class="headerlink" title="tuple 元组"></a>tuple 元组</h4><ul>
+<li>元组属于<strong>不可变序列</strong>，用于<strong>存储异构数据的集合</strong></li>
+<li>构造<ol>
+<li><code>()</code> 表示空元组</li>
+<li>单例元组使用   a trailing comma for a singleton tuple <strong>末尾逗号</strong> <code>（a,）</code></li>
+<li>使用逗号分割元素</li>
+<li>函数内置函数tuple()</li>
+</ol>
+<ul>
+<li>Note that it is <strong>actually the comma which makes a tuple</strong>, not the parentheses. </li>
+<li><strong>本质上是由逗号确定元组的</strong></li>
+<li><strong>可以不加括号</strong>，但是不常用</li>
+</ul>
+</li>
+<li>本质<ul>
+<li>元素属于序列，基本满足序列的操作</li>
+<li>通过索引进行元素的操作，只能打印</li>
+<li><strong>元素 不可变</strong></li>
+<li><img src="/2019/09/23/Python列表，字典，集合详解/37ed335f.png" alt="元组内存结构"></li>
+<li>和list对比，存储的是<strong>地址常量</strong>，而且list中存储的是<strong>地址变量</strong></li>
+</ul>
+</li>
+<li>索引<ul>
+<li>正向索引</li>
+<li>负向索引</li>
+<li>切片操作 左开右闭合 [)</li>
+</ul>
+</li>
+<li>元素符号<ul>
+<li><ul>
+<li>拼接 </li>
+</ul>
+</li>
+<li><ul>
+<li>复制</li>
+</ul>
+</li>
+<li>in 成员操作符<ul>
+<li>in 判断第一层的元素</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>循环<ul>
+<li>元素遍历循环</li>
+<li>下标循环</li>
+</ul>
+</li>
+<li>max,min<ul>
+<li>返回最大，最小的元素</li>
+<li>如果有嵌套的，报错</li>
+</ul>
+</li>
+</ul>
+<h4 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h4><ul>
+<li>A set object is an <strong>unordered collection</strong> of <strong>distinct hashable objects</strong></li>
+<li><strong>不同哈希对象的无序集合</strong></li>
+<li><strong>不重复元素的无序集合</strong></li>
+<li>不支持索引<ul>
+<li>用途<ul>
+<li>成员资格测试</li>
+<li>从序列中删除重复项</li>
+<li>数学运算（差集，交集，补集）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>无序</strong>集合，不记录元素的元素的位置和插入顺序，不支持索引，切片或其他类似序列的操作</li>
+<li>有两种类型<code>set</code>和<code>frozenset</code></li>
+</ul>
+<ol>
+<li>class set([iterable]) <ul>
+<li>The set type is <strong>mutable</strong> — the contents <strong>can be changed</strong> using methods like add() and remove(). </li>
+<li>Since it is mutable, it has <strong>no hash value</strong> and cannot be used as either a dictionary key or as an element of another set. </li>
+</ul>
+</li>
+<li>class frozenset([iterable]) <ul>
+<li>The frozenset type is <strong>immutable and hashable</strong> — its contents cannot be altered after it is created; </li>
+<li>it can therefore be used as a dictionary key or as an element of another set.<h5 id="构造set"><a href="#构造set" class="headerlink" title="构造set"></a>构造set</h5></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>使用大括号<code>{}</code>定义</li>
+<li>元素之间用<strong>逗号</strong>隔开</li>
+<li>set([iterable])  可迭代对象拆分成了 集合</li>
+<li><code>{}</code> 定义的是<strong>dict</strong><ul>
+<li>空set使用set()定义  输出也是 <code>set()</code></li>
+<li>set(set)：使用set重新创建set，<strong>两个不一致</strong></li>
+</ul>
+</li>
+<li>set集合没有顺序</li>
+<li>从字典转换成集合 注意：<strong>只有key值</strong></li>
+<li><strong>集合不能进行单独元素的操作</strong></li>
+</ul>
+<h5 id="set的函数"><a href="#set的函数" class="headerlink" title="set的函数"></a>set的函数</h5><ol>
+<li>add(elem) <ul>
+<li>Add element elem to the set.</li>
+<li>注意 set的元素是hashable的，所以不能添加list和set，</li>
+</ul>
+</li>
+<li>update(*others) <ul>
+<li>Update a set with the <strong>union</strong> of itself and others</li>
+<li><strong>参数是iterable</strong> TypeError: ‘int’ object is not iterable</li>
+<li>会将可迭代对象的每个元素和原set进行union操作</li>
+</ul>
+</li>
+<li>remove<ul>
+<li>删除元素,但是元素不存在时，会报错</li>
+<li>KeyError: 1</li>
+<li>Remove an element from a set; it must be a member.</li>
+<li>If the element is not a member, raise a KeyError.</li>
+</ul>
+</li>
+<li>discard(elem) <ul>
+<li>Remove element elem from the set if it is present.</li>
+<li>删除元素，如果存在与set中，则删除</li>
+<li>不存在与set中，do nothing</li>
+</ul>
+</li>
+<li>pop<ul>
+<li>Remove and return an arbitrary element from the set. Raises KeyError if the set is empty</li>
+<li>从集合中删除和返回<strong>任意元素</strong></li>
+<li>集合为空，会引发keyError错误</li>
+</ul>
+</li>
+<li>clear <ul>
+<li>Remove all elements from the set.</li>
+</ul>
+</li>
+<li>difference(*others) <ul>
+<li>set - other - … </li>
+<li>Return a new set with elements <strong>in the set that are not in the others.</strong></li>
+<li>返回一个集合，元素在set中，而不在other中</li>
+<li>表示差集 A.difference(B) == A-B</li>
+</ul>
+</li>
+<li>isdisjoint(other) <ul>
+<li>Return True if the set has no elements in common with other. Sets are disjoint if and only if their intersection is the empty set.</li>
+<li><strong>没有交集</strong></li>
+</ul>
+</li>
+</ol>
+<h5 id="set的循环"><a href="#set的循环" class="headerlink" title="set的循环"></a>set的循环</h5><ul>
+<li>没有索引操作，只能使用in操作符<strong>元素遍历</strong></li>
+</ul>
+<h4 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h4><ul>
+<li>tuple</li>
+<li>set</li>
+<li>list</li>
+</ul>
+<h5 id="set无法单独操作每个元素"><a href="#set无法单独操作每个元素" class="headerlink" title="set无法单独操作每个元素"></a>set无法单独操作每个元素</h5><ul>
+<li>循环遍历中的是 <strong>副本</strong></li>
+<li>可以修改副本，但是修改不了原本</li>
+<li><strong>如果要操作单个元素，可以转化成list，修改之后，再次转换回来</strong></li>
+</ul>
+<h5 id="集合的运算符"><a href="#集合的运算符" class="headerlink" title="集合的运算符"></a>集合的运算符</h5><ol>
+<li><p>-</p>
+<ul>
+<li>差集</li>
+<li>A - B：A中存在的元素，B中不存在</li>
+</ul>
+</li>
+<li><p>&amp;</p>
+<ul>
+<li>交集</li>
+<li>A &amp; B：元素存在于A中，也存在B中</li>
+<li>和集合的前后顺序无关</li>
+</ul>
+</li>
+<li><p>|</p>
+<ul>
+<li>并集</li>
+<li>返回一个集合</li>
+<li>A | B: 元素存在与A或者B中</li>
+</ul>
+</li>
+<li><p>^</p>
+<ul>
+<li>并集 - 交集</li>
+<li>A ^ B: 分别存在A或者B集合中</li>
+</ul>
+</li>
+<li><p>==</p>
+<ul>
+<li>判断A和B元素是否相等</li>
+<li>只要元素分别存在与两个集合中返回True</li>
+<li>不考虑顺序，set没有顺序</li>
+</ul>
+</li>
+<li><p>in </p>
+<ul>
+<li>用于<strong>判断元素是否是否属于集合</strong></li>
+<li><strong>如果是 set in set 返回False</strong>11<h5 id="集合的关系运算符"><a href="#集合的关系运算符" class="headerlink" title="集合的关系运算符"></a>集合的关系运算符</h5></li>
+</ul>
+</li>
+<li><p>issubset(other)  包含</p>
+<ul>
+<li>set &lt;= other </li>
+<li>Test whether every element in the set is in other.</li>
+<li>测试set中的元素是否存在与other</li>
+<li>set &lt; other </li>
+<li>Test whether the set is a proper subset of other, that is, <strong>set &lt;= other and set != other</strong>.</li>
+<li>测试set的是不是other的子集，</li>
+</ul>
+</li>
+<li><p>issuperset(other)   被包含</p>
+<ul>
+<li><p>set &gt;= other </p>
+</li>
+<li><p>Test whether every element in other is in the set.</p>
+</li>
+<li><p>set &gt; other </p>
+</li>
+<li><p>Test whether the set is a proper superset of other, that is, set &gt;= other and set != other.</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="mapping-type-—-gt-dict"><a href="#mapping-type-—-gt-dict" class="headerlink" title="mapping type —&gt; dict"></a>mapping type —&gt; dict</h4><ul>
+<li>映射</li>
+<li>A mapping object maps hashable values to arbitrary objects. </li>
+<li>映射对象：<strong>可哈希值映射到任意的对象</strong></li>
+<li>mapping 是可变类型，目前标准映射只有dict</li>
+</ul>
+<h5 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h5><ul>
+<li>Key：几乎任意值，但是必须是可哈希的</li>
+<li>Value：任意值<ul>
+<li>list，dict和set 不能作为key</li>
+</ul>
+</li>
+<li>Dictionaries can be created by <strong>placing a comma-separated list of key</strong>: <strong>value pairs within braces</strong></li>
+<li>可变数据类型，存储任意类型对象</li>
+<li>集合的加强版，可以使用key调用value；key和set的元素类似</li>
+<li>key的value<strong>可以被覆盖，按照录入顺序</strong><h5 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h5></li>
+<li>class dict(**kwarg)  关键字参数<ul>
+<li>name=”zhaolong” 其中<strong>前一个不需要引号</strong></li>
+</ul>
+</li>
+<li>class dict(mapping, **kwarg)   映射类型<ul>
+<li>如 zip函数</li>
+</ul>
+</li>
+<li>class dict(iterable, **kwarg)   可迭代一对<ul>
+<li>[(,)]</li>
+</ul>
+</li>
+<li>dict() 或者 {} <strong>创建空字典</strong></li>
+<li>通过key值引用value dict[key]</li>
+</ul>
+<h5 id="映射函数"><a href="#映射函数" class="headerlink" title="映射函数"></a>映射函数</h5><ul>
+<li><p>zip(*iterables) </p>
+<ul>
+<li><p>参数是多个可迭代数据，或者可迭代的列表</p>
+</li>
+<li><p>Make an iterator that aggregates elements from each of the iterables.</p>
+</li>
+<li><p><strong>根据多个迭代对象的对应元素创建一个迭代对象</strong></p>
+</li>
+<li><p>返回一个<strong>元组的迭代器</strong>，<strong>元素来自与参数迭代对象的对应元素</strong></p>
+</li>
+<li><p>The iterator stops when the shortest input iterable is exhausted. </p>
+</li>
+<li><p>当其中任意一个可迭代对象停止时，结束</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">zip</span><span class="params">(*iterables)</span>:</span></span><br><span class="line"><span class="comment"># zip('ABCD', 'xy') --&gt; Ax By</span></span><br><span class="line">sentinel = object()</span><br><span class="line">iterators = [iter(it) <span class="keyword">for</span> it <span class="keyword">in</span> iterables]</span><br><span class="line"><span class="keyword">while</span> iterators:</span><br><span class="line">    result = []</span><br><span class="line">    <span class="keyword">for</span> it <span class="keyword">in</span> iterators:</span><br><span class="line">        elem = next(it, sentinel)</span><br><span class="line">        <span class="keyword">if</span> elem <span class="keyword">is</span> sentinel:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        result.append(elem)</span><br><span class="line">    <span class="keyword">yield</span> tuple(result)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>zip() 函数可用于解压缩列表</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="字典的更新"><a href="#字典的更新" class="headerlink" title="字典的更新"></a>字典的更新</h5><ol>
+<li>in </li>
+</ol>
+<ul>
+<li><strong>判断键值是否存在</strong>，不判断值</li>
+<li>key in d <ul>
+<li>Return True if d has a key key, else False.</li>
+</ul>
+</li>
+<li>key not in d <ul>
+<li>Equivalent to not key in d.</li>
+</ul>
+</li>
+</ul>
+<p>2.del d[key]<br>    * Remove d[key] from d. Raises a KeyError if key is not in the map.</p>
+<ol start="3">
+<li>clear() <ul>
+<li>Remove all items from the dictionary.</li>
+</ul>
+</li>
+<li>len(d) <ul>
+<li>Return the number of items in the dictionary d.</li>
+</ul>
+</li>
+<li>copy() <ul>
+<li>Return a shallow copy of the dictionary.</li>
+</ul>
+</li>
+<li>get(key[, default]) <ul>
+<li>Return <strong>the value for key</strong> if key is in the dictionary, else default.</li>
+<li>If default is not given, it <strong>defaults to None</strong>, so that this method <strong>never raises a KeyError</strong>.</li>
+</ul>
+</li>
+<li>items() <ul>
+<li>Return a new view of the dictionary’s items ((key, value) pairs). See the documentation of view objects.</li>
+</ul>
+</li>
+<li>keys() <ul>
+<li>Return a new view of the dictionary’s keys. See the documentation of view objects.</li>
+</ul>
+</li>
+<li>values() <ul>
+<li>Return a new view of the dictionary’s values. See the documentation of view objects.</li>
+<li>a <strong>set-like object</strong> providing <strong>a view on D’s items</strong></li>
+<li>都是可以迭代的 </li>
+</ul>
+</li>
+<li>update([other]) <ul>
+<li>Update the dictionary with the <strong>key/value pairs from other</strong>, </li>
+<li>overwriting existing keys. Return None.</li>
+<li>会使用参数dict的键值对更新dict，如果存在，覆盖；如果不存在，返回None</li>
+<li>会更新dict</li>
+</ul>
+</li>
+<li>setdefault(key[, default]) <ul>
+<li>If key is in the dictionary, return its value. </li>
+<li>If not, <strong>insert key with a value of default and return default</strong>. </li>
+<li>default defaults to None.</li>
+</ul>
+</li>
+</ol>
+<h4 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h4><ul>
+<li><img src="/2019/09/23/Python列表，字典，集合详解/2eddd0a3.png" alt="迭代器原理"></li>
+<li>迭代器协议<ul>
+<li><strong>iter</strong></li>
+<li><strong>next</strong></li>
+<li>StopIteration</li>
+</ul>
+</li>
+<li>常用在<code>for in</code>环境中</li>
+<li>可迭代对象 和 迭代器 的协议稍微不一致</li>
+<li><img src="/2019/09/23/Python列表，字典，集合详解/18542041.png" alt="可迭代对象"></li>
+<li><img src="/2019/09/23/Python列表，字典，集合详解/a035e139.png" alt="迭代器"></li>
+</ul>
+<h4 id="生成器-generator"><a href="#生成器-generator" class="headerlink" title="生成器 generator"></a>生成器 generator</h4><h5 id="列表生成式：-x-for-x-in-range-100-一次性全部删除，浪费内存"><a href="#列表生成式：-x-for-x-in-range-100-一次性全部删除，浪费内存" class="headerlink" title="列表生成式：[x for x in range(100)]  一次性全部删除，浪费内存"></a>列表生成式：[x for x in range(100)]  一次性全部删除，<strong>浪费内存</strong></h5><ul>
+<li>非常暴力的占用内存，严重浪费<h5 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h5></li>
+<li>一次生成一个数据，节约内存</li>
+<li>使用关键字 <code>yield</code>生成生成器函数</li>
+<li>或者<strong>生成器表达式()</strong><h6 id="列表生成器"><a href="#列表生成器" class="headerlink" title="列表生成器"></a>列表生成器</h6></li>
+<li>(x for x in range(100))</li>
+<li>使用 next()</li>
+</ul>
+<h5 id="生成器函数"><a href="#生成器函数" class="headerlink" title="生成器函数"></a>生成器函数</h5><ul>
+<li>和常规函数没有区别</li>
+<li>但是 在内部使用了关键字 <code>yield</code></li>
+<li>其中 函数名：函数</li>
+<li>函数调用：函数名() 的类型时generator</li>
+<li>第一次执行：到达yield 返回内存</li>
+<li>第二次调用：继续上一次执行的地方继续执行</li>
+<li>注意<ul>
+<li>使用的时候，首先 将函数生成器赋值给变量，以防每次使用生成一个<strong>新的生成器</strong>  x=go()</li>
+<li>yield 在函数常和for<strong>搭配使用</strong></li>
+<li>生成器函数只能通过<code>next()</code>调用<ul>
+<li>因为 函数名() 已经变成一个 generator 了</li>
+<li>必须使用 next()</li>
+</ul>
+</li>
+<li>常用于<strong>读取文件</strong></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Python/" rel="tag"># Python</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/23/Python字符串详解/" rel="next" title="Python字符串详解">
+                  <i class="fa fa-chevron-left"></i> Python字符串详解
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#列表详细-元组详细-集合详细-字典详细-迭代器"><span class="nav-number">1.</span> <span class="nav-text">列表详细  元组详细  集合详细  字典详细 迭代器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#list-列表"><span class="nav-number">1.1.</span> <span class="nav-text">list 列表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#列表的构造"><span class="nav-number">1.1.1.</span> <span class="nav-text">列表的构造</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#内存结构"><span class="nav-number">1.1.2.</span> <span class="nav-text">内存结构</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#list特点"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">list特点</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索引"><span class="nav-number">1.1.3.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#⚠-循环"><span class="nav-number">1.1.4.</span> <span class="nav-text">⚠ 循环</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#del"><span class="nav-number">1.2.</span> <span class="nav-text">del</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#列表的运算符"><span class="nav-number">1.2.1.</span> <span class="nav-text">列表的运算符</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列表的嵌套"><span class="nav-number">1.3.</span> <span class="nav-text">列表的嵌套</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#isinstance-object-classinfo"><span class="nav-number">1.3.1.</span> <span class="nav-text">isinstance(object, classinfo)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#列表的常见方法"><span class="nav-number">1.3.2.</span> <span class="nav-text">列表的常见方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list的拷贝"><span class="nav-number">1.3.3.</span> <span class="nav-text">list的拷贝</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tuple-元组"><span class="nav-number">1.4.</span> <span class="nav-text">tuple 元组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集合"><span class="nav-number">1.5.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#构造set"><span class="nav-number">1.5.1.</span> <span class="nav-text">构造set</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#set的函数"><span class="nav-number">1.5.2.</span> <span class="nav-text">set的函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#set的循环"><span class="nav-number">1.5.3.</span> <span class="nav-text">set的循环</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类型转换"><span class="nav-number">1.6.</span> <span class="nav-text">类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#set无法单独操作每个元素"><span class="nav-number">1.6.1.</span> <span class="nav-text">set无法单独操作每个元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#集合的运算符"><span class="nav-number">1.6.2.</span> <span class="nav-text">集合的运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#集合的关系运算符"><span class="nav-number">1.6.3.</span> <span class="nav-text">集合的关系运算符</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mapping-type-—-gt-dict"><span class="nav-number">1.7.</span> <span class="nav-text">mapping type —&gt; dict</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#字典"><span class="nav-number">1.7.1.</span> <span class="nav-text">字典</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#构造"><span class="nav-number">1.7.2.</span> <span class="nav-text">构造</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#映射函数"><span class="nav-number">1.7.3.</span> <span class="nav-text">映射函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字典的更新"><span class="nav-number">1.7.4.</span> <span class="nav-text">字典的更新</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代器"><span class="nav-number">1.8.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成器-generator"><span class="nav-number">1.9.</span> <span class="nav-text">生成器 generator</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#列表生成式：-x-for-x-in-range-100-一次性全部删除，浪费内存"><span class="nav-number">1.9.1.</span> <span class="nav-text">列表生成式：[x for x in range(100)]  一次性全部删除，浪费内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#生成器"><span class="nav-number">1.9.2.</span> <span class="nav-text">生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#列表生成器"><span class="nav-number">1.9.2.1.</span> <span class="nav-text">列表生成器</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#生成器函数"><span class="nav-number">1.9.3.</span> <span class="nav-text">生成器函数</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/touxiang.jpg"
+      alt="zhao long">
+  <p class="site-author-name" itemprop="name">zhao long</p>
+  <div class="site-description" itemprop="description">自由飞翔的(>^ω^<)喵</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/zhaolong1056" title="GitHub &rarr; https://github.com/zhaolong1056" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:zhao.long1056@foxmail.com" title="E-Mail &rarr; mailto:zhao.long1056@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/ZhaoLong-study/" title="https://www.cnblogs.com/ZhaoLong-study/" rel="noopener" target="_blank">博客园</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://me.csdn.net/weixin_43980677" title="https://me.csdn.net/weixin_43980677" rel="noopener" target="_blank">CSDN</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhao long</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

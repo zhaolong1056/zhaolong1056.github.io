@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.0">
+  <link rel="alternate" href="/atom.xml" title="夕阳西下，断肠人在天涯" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","unescape":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="for循环 Python中的for循环通过一个序列中的每个值来进行迭代 知道循环次数的 计数器控制的循环 不需要使用变量来控制循环 迭代环境，使用的是 可迭代的对象 列表 元组 字典 集合 字符串   for循环处理速度稍微快点 主要是计数器参与运算的，不需要在循环体中再次编写   for 循环的参数是正整数–计数器">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python循环-for">
+<meta property="og:url" content="http://yoursite.com/2019/09/23/Python循环-for/index.html">
+<meta property="og:site_name" content="夕阳西下，断肠人在天涯">
+<meta property="og:description" content="for循环 Python中的for循环通过一个序列中的每个值来进行迭代 知道循环次数的 计数器控制的循环 不需要使用变量来控制循环 迭代环境，使用的是 可迭代的对象 列表 元组 字典 集合 字符串   for循环处理速度稍微快点 主要是计数器参与运算的，不需要在循环体中再次编写   for 循环的参数是正整数–计数器">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python循环-for/ff0ac7b8.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python循环-for/bd105252.png">
+<meta property="og:updated_time" content="2019-09-23T07:12:52.675Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python循环-for">
+<meta name="twitter:description" content="for循环 Python中的for循环通过一个序列中的每个值来进行迭代 知道循环次数的 计数器控制的循环 不需要使用变量来控制循环 迭代环境，使用的是 可迭代的对象 列表 元组 字典 集合 字符串   for循环处理速度稍微快点 主要是计数器参与运算的，不需要在循环体中再次编写   for 循环的参数是正整数–计数器">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/23/Python循环-for/ff0ac7b8.png">
+  <link rel="canonical" href="http://yoursite.com/2019/09/23/Python循环-for/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Python循环-for | 夕阳西下，断肠人在天涯</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">夕阳西下，断肠人在天涯</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">好好学习，天天向上</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/Python循环-for/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhao long">
+      <meta itemprop="description" content="自由飞翔的(>^ω^<)喵">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夕阳西下，断肠人在天涯">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Python循环-for
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-23 15:10:27 / 修改时间：15:12:52" itemprop="dateCreated datePublished" datetime="2019-09-23T15:10:27+08:00">2019-09-23</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h4><ul>
+<li>Python中的for循环通过一个<strong>序列</strong>中的<strong>每个值</strong>来进行<strong>迭代</strong></li>
+<li>知道循环次数的</li>
+<li><strong>计数器控制的循环</strong></li>
+<li>不需要使用变量来控制循环</li>
+<li>迭代环境，使用的是 <strong>可迭代的对象</strong><ul>
+<li>列表</li>
+<li>元组</li>
+<li>字典</li>
+<li>集合</li>
+<li>字符串</li>
+</ul>
+</li>
+<li>for循环<strong>处理速度稍微快点</strong><ul>
+<li>主要是<strong>计数器参与运算的</strong>，不需要在循环体中再次编写</li>
+</ul>
+</li>
+<li>for 循环的参数是<strong>正整数</strong>–计数器<a id="more"></a>
+<h5 id="range"><a href="#range" class="headerlink" title="range"></a>range</h5></li>
+<li><img src="/2019/09/23/Python循环-for/ff0ac7b8.png" alt="Range"></li>
+<li>an immutable sequence of numbers 不可变的数字序列，用于For循环中</li>
+<li>两种用法<ul>
+<li><code>class range(stop)</code> </li>
+<li><code>class range(start, stop[, step])</code></li>
+</ul>
+</li>
+<li>函数的参数必须是<strong>整数</strong></li>
+<li>省略step参数，则默认为1.省略start参数，默认为0.如果step为零，则引发<code>ValueError</code></li>
+<li>不包含 stop</li>
+<li>For a positive step, the contents of a range r are determined by the formula <code>r[i] = start + step*i where i &gt;= 0 and r[i] &lt; stop</code>.</li>
+<li>For a negative step, the contents of the range are still determined by the formula <code>r[i] = start + step*i</code>, but the constraints are <code>i &gt;= 0 and r[i] &gt; stop</code>.</li>
+<li>负指数，被解释为从正指数确定的序列末尾开始索引</li>
+<li>负方向：表示的是从start开始，每次减去abs(step)的数值,而且 start &gt; stop</li>
+<li>本质上，是从start开始到stop-1截至，按照step取值<ul>
+<li>当step为正数，start&lt;stop,<code>做加法</code></li>
+<li>当step为负数，start&gt;stop，<code>做减法</code></li>
+<li>start != stop</li>
+<li>i!= 0  </li>
+</ul>
+</li>
+</ul>
+<h5 id="else"><a href="#else" class="headerlink" title="else"></a>else</h5><ul>
+<li>for - else：<ul>
+<li><strong>恰好即将跳出循环</strong></li>
+<li>else 的条件是 <strong>最后一个条件</strong></li>
+<li>结合for循环，会将<strong>最后一个值</strong>执行for语句和else语句<strong>两次</strong></li>
+<li><img src="/2019/09/23/Python循环-for/bd105252.png" alt="for-else"></li>
+<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>): <span class="comment"># for仅仅使用整数</span></span><br><span class="line">    print(i)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(i)  <span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="for循环与while循环"><a href="#for循环与while循环" class="headerlink" title="for循环与while循环"></a>for循环与while循环</h5><ul>
+<li>任何for循环都可以转化为while循环</li>
+<li>但是 while循环不一定能转化成for循环<ul>
+<li>while 循环可以处理<strong>实数</strong></li>
+<li>while 循环可以处理<strong>死循环</strong></li>
+</ul>
+</li>
+</ul>
+<h5 id="for-循环的嵌套"><a href="#for-循环的嵌套" class="headerlink" title="for 循环的嵌套"></a>for 循环的嵌套</h5><ul>
+<li>嵌套循环可能会花费很长的时间来允许</li>
+<li>用途<ul>
+<li>显示<strong>列表</strong></li>
+<li>平面</li>
+</ul>
+</li>
+</ul>
+<h5 id="break-continue"><a href="#break-continue" class="headerlink" title="break continue"></a>break continue</h5><ul>
+<li>break 中断循环，直接跳出循环<ul>
+<li>不会执行else语句</li>
+<li><strong>结束多余</strong>的循环</li>
+</ul>
+</li>
+<li>continue <strong>结束本次循环</strong>，继续下一次循环<ul>
+<li>忽略continue之后的代码，返回循环头部继续一下次循环</li>
+<li>主要起到 <strong>筛选作用</strong></li>
+</ul>
+</li>
+<li>break 和 continue <strong>必须搭配 if</strong> 进行判断</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><h5 id="循环的三种方式"><a href="#循环的三种方式" class="headerlink" title="循环的三种方式"></a>循环的三种方式</h5><ol>
+<li>while</li>
+<li>for</li>
+<li>死循环+break</li>
+</ol>
+<h5 id="控制"><a href="#控制" class="headerlink" title="控制"></a>控制</h5><ul>
+<li>break</li>
+<li>continue</li>
+</ul>
+<h5 id="else-1"><a href="#else-1" class="headerlink" title="else"></a>else</h5><ul>
+<li>for-else：<ul>
+<li>即将跳出循环</li>
+<li>对最后一个计数器<strong>再次处理</strong></li>
+</ul>
+</li>
+<li>while-else:<ul>
+<li>对 <strong>临界值</strong> 进行处理</li>
+</ul>
+</li>
+</ul>
+<h5 id="while-风格"><a href="#while-风格" class="headerlink" title="while 风格"></a>while 风格</h5><ul>
+<li>设定循环次数，包含了<strong>循环终止条件</strong></li>
+<li><strong>变量值发生变化</strong></li>
+<li><code>while Ture if break</code></li>
+<li>常见错误：忘记自增或则自减</li>
+<li>可以处理<strong>浮点数</strong><ul>
+<li>num - 数值 &lt; 0.000001</li>
+</ul>
+</li>
+</ul>
+<h5 id="for-风格"><a href="#for-风格" class="headerlink" title="for 风格"></a>for 风格</h5><ul>
+<li>循环条件  <strong>计数器 整数</strong><ul>
+<li>常使用 range <ul>
+<li>range(100)</li>
+<li>range(1,100,1)</li>
+<li>range(100,1,-10)</li>
+</ul>
+</li>
+<li>不包含第二个值</li>
+<li>默认步长  1</li>
+<li><strong>步长不能为0</strong> -&gt; for不能实现死循环</li>
+</ul>
+</li>
+</ul>
+<h5 id="时间统计"><a href="#时间统计" class="headerlink" title="时间统计"></a>时间统计</h5><ul>
+<li>time.time() 返回当前时间，以<strong>秒</strong>为单位</li>
+<li>做减法可以得到<strong>时间差</strong></li>
+<li>time.sleep(5)<ul>
+<li>暂停5秒</li>
+</ul>
+</li>
+</ul>
+<h5 id="变量交换"><a href="#变量交换" class="headerlink" title="变量交换"></a>变量交换</h5><ol>
+<li>添加<strong>临时变量</strong>，交换变量</li>
+<li>对称赋值 <code>a,b = b,a</code><ul>
+<li>先计算=号右边的表达式</li>
+<li>交换数据</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Python/" rel="tag"># Python</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/23/Python循环-while/" rel="next" title="Python循环-while">
+                  <i class="fa fa-chevron-left"></i> Python循环-while
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/09/23/Python函数/" rel="prev" title="Python函数">
+                  Python函数 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#for循环"><span class="nav-number">1.</span> <span class="nav-text">for循环</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#range"><span class="nav-number">1.1.</span> <span class="nav-text">range</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#else"><span class="nav-number">1.2.</span> <span class="nav-text">else</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#for循环与while循环"><span class="nav-number">1.3.</span> <span class="nav-text">for循环与while循环</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#for-循环的嵌套"><span class="nav-number">1.4.</span> <span class="nav-text">for 循环的嵌套</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#break-continue"><span class="nav-number">1.5.</span> <span class="nav-text">break continue</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#循环的三种方式"><span class="nav-number">2.1.</span> <span class="nav-text">循环的三种方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#控制"><span class="nav-number">2.2.</span> <span class="nav-text">控制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#else-1"><span class="nav-number">2.3.</span> <span class="nav-text">else</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#while-风格"><span class="nav-number">2.4.</span> <span class="nav-text">while 风格</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#for-风格"><span class="nav-number">2.5.</span> <span class="nav-text">for 风格</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#时间统计"><span class="nav-number">2.6.</span> <span class="nav-text">时间统计</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量交换"><span class="nav-number">2.7.</span> <span class="nav-text">变量交换</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/touxiang.jpg"
+      alt="zhao long">
+  <p class="site-author-name" itemprop="name">zhao long</p>
+  <div class="site-description" itemprop="description">自由飞翔的(>^ω^<)喵</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/zhaolong1056" title="GitHub &rarr; https://github.com/zhaolong1056" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:zhao.long1056@foxmail.com" title="E-Mail &rarr; mailto:zhao.long1056@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/ZhaoLong-study/" title="https://www.cnblogs.com/ZhaoLong-study/" rel="noopener" target="_blank">博客园</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://me.csdn.net/weixin_43980677" title="https://me.csdn.net/weixin_43980677" rel="noopener" target="_blank">CSDN</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhao long</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

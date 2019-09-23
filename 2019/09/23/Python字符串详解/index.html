@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.0">
+  <link rel="alternate" href="/atom.xml" title="夕阳西下，断肠人在天涯" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","unescape":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="字符串详解eval 和 evec eval： eval 语句用来计算存储在字符串中的有效表达式 内置函数 可以转化为实数,只能处理字符串形式的表达式 常见的使用：num = eval(input(&amp;quot;输入数据:&amp;quot;)) The expression argument is parsed and evaluated as a Python expression  eval(&amp;quot">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python字符串详解">
+<meta property="og:url" content="http://yoursite.com/2019/09/23/Python字符串详解/index.html">
+<meta property="og:site_name" content="夕阳西下，断肠人在天涯">
+<meta property="og:description" content="字符串详解eval 和 evec eval： eval 语句用来计算存储在字符串中的有效表达式 内置函数 可以转化为实数,只能处理字符串形式的表达式 常见的使用：num = eval(input(&amp;quot;输入数据:&amp;quot;)) The expression argument is parsed and evaluated as a Python expression  eval(&amp;quot">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/10ed7d8f.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/6cffef75.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/49d4d88f.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/81291b59.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/52c7c96e.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/76f39d58.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/056b29ea.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/e3ba965f.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/ff4bf9e4.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/d0a2e3f0.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/48490a2e.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/5c181c38.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/4f23c1f0.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/fdb26710.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/3a987dab.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/25935f82.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/Python字符串详解/dc268b51.png">
+<meta property="og:updated_time" content="2019-09-23T07:25:42.771Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python字符串详解">
+<meta name="twitter:description" content="字符串详解eval 和 evec eval： eval 语句用来计算存储在字符串中的有效表达式 内置函数 可以转化为实数,只能处理字符串形式的表达式 常见的使用：num = eval(input(&amp;quot;输入数据:&amp;quot;)) The expression argument is parsed and evaluated as a Python expression  eval(&amp;quot">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/23/Python字符串详解/10ed7d8f.png">
+  <link rel="canonical" href="http://yoursite.com/2019/09/23/Python字符串详解/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Python字符串详解 | 夕阳西下，断肠人在天涯</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">夕阳西下，断肠人在天涯</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">好好学习，天天向上</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/Python字符串详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhao long">
+      <meta itemprop="description" content="自由飞翔的(>^ω^<)喵">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夕阳西下，断肠人在天涯">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Python字符串详解
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-23 15:19:37 / 修改时间：15:25:42" itemprop="dateCreated datePublished" datetime="2019-09-23T15:19:37+08:00">2019-09-23</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="字符串详解"><a href="#字符串详解" class="headerlink" title="字符串详解"></a>字符串详解</h3><h4 id="eval-和-evec"><a href="#eval-和-evec" class="headerlink" title="eval 和 evec"></a>eval 和 evec</h4><ol>
+<li>eval：<ul>
+<li>eval 语句用来计算存储在字符串中的<strong>有效表达式</strong></li>
+<li>内置函数</li>
+<li>可以转化为实数,<strong>只能处理字符串形式的表达式</strong></li>
+<li>常见的使用：<code>num = eval(input(&quot;输入数据:&quot;))</code></li>
+<li>The expression argument is parsed and evaluated as a Python expression </li>
+<li><code>eval(&quot;2+2&quot;)</code></li>
+<li><strong>参数是 “字符串”</strong></li>
+<li>eval() arg 1 must be a string, bytes or code object</li>
+<li><strong>将文本当作表达式使用</strong><a id="more"></a></li>
+</ul>
+</li>
+<li>exec：<ul>
+<li>exec 语句 用来执行存储在字符串或文件中的<strong>python语句</strong></li>
+<li><code>exec(print(&quot;hello world&quot;))</code></li>
+<li>This function supports dynamic execution of Python code. object must be either a string or a code object</li>
+<li>The source may be a string representing one or more Python statements</li>
+<li><strong>处理字符串形式的python语句</strong></li>
+<li><strong>将文本当作语句执行</strong></li>
+<li>exec() arg 1 must be a string, bytes or code object</li>
+</ul>
+</li>
+</ol>
+<h5 id="repr"><a href="#repr" class="headerlink" title="repr"></a>repr</h5><ul>
+<li>Return a string containing a printable representation of an object.</li>
+<li>For many types, this function makes an attempt to return a string that would yield an object with the same value when passed to eval(), otherwise the representation is a string enclosed in angle brackets that contains the name of the type of the object together with additional information often including the name and address of the object. A class can control what this function returns for its instances by defining a <strong>repr</strong>() method.</li>
+<li><strong>返回一个包含可打印表示的字符串</strong></li>
+<li>可以直接交给eval使用，但是输出的结果依然是repr()的参数 </li>
+<li><strong>主要用来取得对象的规范字符串表示</strong>，反引号也可以完成相同的功能</li>
+<li>大多数时候<code>eval(repr(object)) == object</code>  <ul>
+<li>repr 加了一层引号</li>
+<li>eval 去掉一层引号</li>
+</ul>
+</li>
+<li>使用<strong>repr</strong>方法控制repr的返回内容</li>
+<li><img src="/2019/09/23/Python字符串详解/10ed7d8f.png" alt="repr和str"></li>
+</ul>
+<h4 id="字符串的操作"><a href="#字符串的操作" class="headerlink" title="字符串的操作"></a>字符串的操作</h4><h5 id="字符串的三种风格"><a href="#字符串的三种风格" class="headerlink" title="字符串的三种风格"></a>字符串的三种风格</h5><ol>
+<li>单引号<ul>
+<li>一般用于字符</li>
+</ul>
+</li>
+<li>双引号<ul>
+<li>一般用于字符串</li>
+</ul>
+</li>
+<li>三引号<ul>
+<li>主要解决多行字符串的问题<h5 id="字符串的基础单位"><a href="#字符串的基础单位" class="headerlink" title="字符串的基础单位"></a>字符串的基础单位</h5></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><strong>字符</strong> - 最小的字符单位</li>
+<li>unicode字符<ul>
+<li>字母，符号(单的)，汉字</li>
+</ul>
+</li>
+</ul>
+<h5 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h5><ul>
+<li>字符在Python的定义的是<code>bytes</code>，也就是<strong>字节流</strong>，包含多个字符</li>
+<li>python中定义字符使用<code>b&#39;&#39;</code></li>
+<li>或者使用 str.encode()</li>
+<li>bytes can only contain ASCII literal characters</li>
+<li>简单的字母</li>
+</ul>
+<h5 id="字符串的截取"><a href="#字符串的截取" class="headerlink" title="字符串的截取"></a>字符串的截取</h5><ul>
+<li>字符串属于序列，可以<strong>使用切片操作</strong>，索引从0开始</li>
+<li><strong>正向索引和负向索引可以混合使用</strong></li>
+</ul>
+<h5 id="字符串赋值"><a href="#字符串赋值" class="headerlink" title="字符串赋值"></a>字符串赋值</h5><ul>
+<li>字符串<strong>不支持元素赋值</strong></li>
+<li>‘str’ object does not support item assignment</li>
+<li>字符串是不可变数据类型</li>
+<li><strong>可以对字符串赋值为新的常量字符串</strong></li>
+<li><strong>字符串除非重新赋值，否则字符串不会改变</strong></li>
+</ul>
+<h5 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h5><blockquote>
+<p>采用某些方式暂时取消该字符本来的含义<br>python中使用<code>\+字符</code>方式表示</p>
+<ul>
+<li><img src="/2019/09/23/Python字符串详解/6cffef75.png" alt="Python常见的转义字符"></li>
+<li>作用<ol>
+<li><strong>表示不可打印字符</strong><ul>
+<li>\b \t \a</li>
+<li>退格 tab 蜂鸣</li>
+</ul>
+</li>
+<li>解决字符串中的<code>\t</code>等<strong>引起的错误</strong>–&gt; ‘\t’ </li>
+</ol>
+</li>
+<li>最常用于目录 <code>\\</code> 表示<code>\</code>,而不是<strong>转义符号</strong><ul>
+<li>主要用于windows系统中，windows系统中<code>\</code>用于目录分隔符</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h5 id="字符串常见运算符"><a href="#字符串常见运算符" class="headerlink" title="字符串常见运算符"></a>字符串常见运算符</h5><ol>
+<li>+<ul>
+<li>字符串的<strong>拼接</strong></li>
+<li>两边只能是str，不能出现int</li>
+<li>TypeError: can only concatenate str (not “int”) to str</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>字符串的<strong>乘法</strong></li>
+<li>序列的<em>乘法</em></li>
+<li><strong>只能和整数相乘</strong></li>
+<li>TypeError: can’t multiply sequence by non-int of type ‘str’</li>
+<li>TypeError: can’t multiply sequence by non-int of type ‘float’</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>[]<ul>
+<li>字符串的<strong>截取</strong></li>
+<li>序列的<strong>截取</strong></li>
+<li>str[n]</li>
+<li>str[m,n,step]</li>
+</ul>
+</li>
+<li>in / not in<ul>
+<li>成员操作符</li>
+<li>ch in str: ch是否存在于str中，返回True和False</li>
+<li>ch 可以是<strong>单个字符，也可以是字符串</strong></li>
+</ul>
+</li>
+</ol>
+<h5 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h5><ul>
+<li><code>\n</code>和<code>\r\n</code> 都起到换行符</li>
+<li>和<b>平台有关，一般可以兼容，效果是一样</b></li>
+<li><table>
+<thead>
+<tr>
+<th>\n</th>
+<th>回车，光标在下一行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\r</td>
+<td>换行，光标在上一行</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="字符串的格式化"><a href="#字符串的格式化" class="headerlink" title="字符串的格式化"></a>字符串的格式化</h4><ul>
+<li><p><code>format()</code></p>
+</li>
+<li><p>Convert a value to a “formatted” representation, as controlled by format_spec. </p>
+</li>
+<li><p>The interpretation of format_spec will depend on the type of the value<br>argument</p>
+</li>
+<li><p>“Format specifications” are used within replacement fields contained<br>within a format string to define how individual values are presented</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">format_spec     ::=  [[fill]align][sign][#][0][width][grouping_option][.precision][type]</span><br><span class="line">fill            ::=  &lt;any character&gt;  # 填充字符</span><br><span class="line">align           ::=  &quot;&lt;&quot; | &quot;&gt;&quot; | &quot;=&quot; | &quot;^&quot;   # 对其角度</span><br><span class="line">sign            ::=  &quot;+&quot; | &quot;-&quot; | &quot; &quot;     # 标志，仅对数字有效</span><br><span class="line">width           ::=  digit+   # 宽度</span><br><span class="line">grouping_option ::=  &quot;_&quot; | &quot;,&quot;   # 数字千分位</span><br><span class="line">precision       ::=  digit+   # 精度</span><br><span class="line">type            ::=  &quot;b&quot; | &quot;c&quot; | &quot;d&quot; | &quot;e&quot; | &quot;E&quot; | &quot;f&quot; | &quot;F&quot; | &quot;g&quot; | &quot;G&quot; | &quot;n&quot; | &quot;o&quot; | &quot;s&quot; | &quot;x&quot; | &quot;X&quot; | &quot;%&quot;  #类型a</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><img src="/2019/09/23/Python字符串详解/49d4d88f.png" alt="类型1"></p>
+</li>
+<li><p><img src="/2019/09/23/Python字符串详解/81291b59.png" alt="类型2"></p>
+</li>
+<li><p>用法 </p>
+<ol>
+<li>函数 <code>format(&quot;字符串&quot;,&quot;格式化表达式&quot;)</code></li>
+<li>方法 <code>&quot;{}，{}，{}&quot;.format(字符串，字符串)</code></li>
+</ol>
+</li>
+</ul>
+<ol>
+<li>函数<ul>
+<li>参数：和格式字符串中的类型一致</li>
+<li>函数 <strong>会将 数据 按照类型进行处理，转换成字符串</strong></li>
+<li>ValueError: Unknown format code ‘f’ for object of type ‘str’</li>
+</ul>
+</li>
+<li>格式化字符串<ul>
+<li>“%s”.% num  一个完整的字符串 <strong>%替换内容</strong></li>
+<li><img src="/2019/09/23/Python字符串详解/52c7c96e.png" alt="精细参数"></li>
+<li><code>%[填充符号][对齐][宽度][,千分位][.精度][类型]</code><ul>
+<li>填充：默认空格</li>
+<li>对齐: &lt; &gt; =</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>特殊表现</li>
+</ol>
+<ul>
+<li><code>%%</code>:<strong>特殊的转义字符</strong>，表示输出一个<code>%</code></li>
+<li><a href="8.字符串格式化表达.py">%转移字符</a></li>
+</ul>
+<h4 id="字符串编码"><a href="#字符串编码" class="headerlink" title="字符串编码"></a>字符串编码</h4><ul>
+<li>Python2中，<strong>普通的字符是以8位的ASCII码进行存储的，而Unicode字符串则存储为16为Unicode字符串</strong>,使用的语法是在字符串前加<code>u</code></li>
+<li>python3中, <strong>所有的字符串都是Unicode字符串</strong></li>
+<li>ASCII格式没有中文，可以编译<ul>
+<li>但是存储中文的话，不能通过编译，必须使用<code>utf-8</code></li>
+</ul>
+</li>
+<li>utf-8和ASCII比较<ul>
+<li>同等条件下，空间占用较大</li>
+<li>utf-8  可以编译中文</li>
+<li><strong>python3中默认字符集Unicode，默认编码格式utf-8</strong></li>
+</ul>
+</li>
+</ul>
+<h5 id="原始字符串"><a href="#原始字符串" class="headerlink" title="原始字符串"></a>原始字符串</h5><ul>
+<li>Both string and bytes literals may optionally be prefixed with a letter ‘r’ or ‘R’; such strings are called raw strings and treat backslashes as literal characters. </li>
+<li>As a result, in string literals, ‘\U’ and ‘\u’ escapes in raw strings are not treated specially.</li>
+<li>格式： <code>r&quot;字符串&quot;</code><ul>
+<li>但是如果字符串本身带着<code>&quot;</code>,r 不适用</li>
+</ul>
+</li>
+</ul>
+<h5 id="查看字符串帮助"><a href="#查看字符串帮助" class="headerlink" title="查看字符串帮助"></a>查看字符串帮助</h5><ul>
+<li><p>dir(‘’)</p>
+<ul>
+<li>Without arguments, return the list of names in the current local scope. </li>
+<li>With an argument, attempt to return <b>a list of valid attributes for that object.</b></li>
+<li>If the object does not provide <strong>dir</strong>(), the function tries its best to gather information from the object’s <b><strong>dict</strong> attribute</b>, if defined, and from its type object. </li>
+<li>The resulting list is not necessarily complete, and may be inaccurate when the object has a custom <strong>getattr</strong>(). </li>
+<li><strong>输出包含对象所属类型的属性和方法的列表</strong></li>
+<li>获取对象有<strong>哪些属性和方法</strong></li>
+</ul>
+</li>
+<li><p>help()</p>
+<ul>
+<li>查看对象的<strong>具体属性的文档</strong></li>
+<li>第一种风格：<code>”“.find</code> 使用<code>&lt;对象&gt;.&lt;方法/属性&gt;</code> 查看</li>
+<li>第二种风格：<code>str.find</code> 使用<code>&lt;类型&gt;.&lt;方法/属性&gt;</code> 查看 </li>
+</ul>
+</li>
+</ul>
+<h5 id="字符串的方法和函数"><a href="#字符串的方法和函数" class="headerlink" title="字符串的方法和函数"></a>字符串的方法和函数</h5><ul>
+<li><strong>字符串的方法和函数数量比较多</strong></li>
+<li>字符串是<strong>不可变数据类型</strong>，他的方法都<strong>返回一个新的字符串</strong>，<strong>不会对原始的字符串产生影响</strong></li>
+<li>常用方法和函数</li>
+</ul>
+<ol>
+<li><p>str.capitalize() </p>
+<ul>
+<li>Return <strong>a copy of the string with its first character capitalized and the rest lowercased.</strong></li>
+<li>返回一个<strong>首字母大写，其余字母小写的副本</strong></li>
+<li><strong>只对英文字符起作用</strong></li>
+</ul>
+</li>
+<li><p>str.center(width[, fillchar]) </p>
+<ul>
+<li>Return centered in a string of length width.</li>
+<li>Padding is done using the specified fillchar (default is an ASCII space). </li>
+<li>The original string is returned if width is less than or equal to len(s).</li>
+<li><strong>返回一个长度是width的字符串，其中原本字符串居中，两边用fillchar填充</strong></li>
+<li>fillchar 默认 <strong>空格</strong></li>
+</ul>
+</li>
+<li><p>str.count(sub[, start[, end]]) </p>
+<ul>
+<li>Return the number of non-overlapping occurrences of substring sub in the range [start, end]. </li>
+<li>Optional arguments start and end are interpreted as in slice notation.</li>
+<li><strong>返回索引范围内的非重叠出现次数</strong></li>
+<li><strong>切片默认是整个字符串</strong>1</li>
+</ul>
+</li>
+<li><p>str.endswith(suffix[, start[, end]]) </p>
+<ul>
+<li>Return True if the string ends with <strong>the specified suffix</strong>, otherwise return False. </li>
+<li>suffix can also be <strong>a tuple of suffixes to look for</strong>. </li>
+<li>With optional start, test beginning at that position. With optional end, stop comparing at that position.</li>
+<li>判断字符串是否是stuffix <strong>后缀</strong> 结尾</li>
+<li><strong>后缀可以是个元组</strong></li>
+<li><strong>本质上是判断以什么字符结尾</strong><ul>
+<li>可以用作判断后缀</li>
+</ul>
+</li>
+<li>相反的str.startswith(prefix[, start[, end]]) </li>
+</ul>
+</li>
+<li><p>str.expandtabs(tabsize=8) </p>
+<ul>
+<li>返回一个副本，<strong>字符串中的tab键由指定的空格数替换</strong></li>
+<li>默认的是8</li>
+<li>Return a copy of the string where all tab characters are replaced by one or more spaces, depending on the current column and the given tab size.</li>
+</ul>
+</li>
+<li><p>str.find(sub[, start[, end]]) </p>
+<ul>
+<li>Return the <strong>lowest index</strong> in the string where substring sub is found within the slice s[start:end].</li>
+<li>Optional arguments start and end are interpreted as in slice notation. Return <strong>-1</strong> if sub is not found.</li>
+<li>查找函数，找不到返回 -1</li>
+<li>注意<ul>
+<li><strong>只是在需要知道sub在那个位置时，才使用find</strong></li>
+<li>如果需要判断是否在字符串中，需要使用in</li>
+</ul>
+</li>
+<li>rfind()<ul>
+<li>Return the <strong>highest index</strong> in the string where substring sub is found,</li>
+<li><strong>sub重复出现，返回最高的索引</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>index(sub[, start[, end]]) </p>
+<ul>
+<li>Like find(), but raise <code>ValueError</code> when the substring is not found.</li>
+<li>和find相似</li>
+<li>但是当sub不存在的时候，报ValueError</li>
+<li>rindex() 和 rfind() 类似</li>
+</ul>
+</li>
+<li><p>判断函数</p>
+<ul>
+<li><p><strong>判断字符串是不是数字的，纯字符的等</strong></p>
+</li>
+<li><p><img src="/2019/09/23/Python字符串详解/76f39d58.png" alt="常见判断函数"></p>
+</li>
+<li><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>isalnum</td>
+<td>一个<strong>字母数字</strong>字符串，不能出现汉字和其他符号</td>
+</tr>
+<tr>
+<td>isalpha</td>
+<td>一个<strong>字母</strong>字符串，所有字符全部是字母，不能包含数字</td>
+</tr>
+<tr>
+<td>isascii</td>
+<td>有acsii码组成的字符串，其中””空字符串也属于</td>
+</tr>
+<tr>
+<td>isdecimal</td>
+<td>十进制字符串</td>
+</tr>
+<tr>
+<td>isdigit</td>
+<td>数字字符串,和上面稍微不一样</td>
+</tr>
+<tr>
+<td>isnumeric</td>
+<td>所有字符都是数字</td>
+</tr>
+<tr>
+<td>islower</td>
+<td>判断小写</td>
+</tr>
+<tr>
+<td>isspace</td>
+<td><strong>空格字符串</strong>，不是空字符串；包含·’\t’,’\n’,’\r’等空白字符</td>
+</tr>
+<tr>
+<td>istitle</td>
+<td>标题字符串，第一个大写，其他字符小写,注意含有空格的情况下，<strong>每个空格后第一个字母都要大写</strong></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>注意：<strong>判断字符串中字符的情况是在非空字符串的条件下</strong></p>
+</li>
+<li><p>注意：<strong>汉字没有大小写之分</strong></p>
+<ul>
+<li>当字符串中全部是汉字时，isupper和islower结果是False</li>
+<li>当字符串中包含其他字符和汉字时，<strong>isupper和islower会忽略汉字进行判断</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>可打印字符和空字符</p>
+<ul>
+<li>isspace()<ul>
+<li><strong>字符串中只有空格字符且至少有一个字符</strong></li>
+<li>空白字符：是Unicode数据库中定义的’others’和’Separator’字符</li>
+</ul>
+</li>
+<li>isprintale()<ul>
+<li><strong>字符串中所有字符是可打印的或则空字符串</strong></li>
+<li>Nonprintable characters are those characters defined in the Unicode character database as “Other” or “Separator”, excepting the ASCII space (0x20) which is considered printable.</li>
+<li>0x20 是<strong>空格，是可以打印的</strong></li>
+<li><strong>在上下文环境中，repr()转移的字符是不可打印字符</strong></li>
+<li><img src="/2019/09/23/Python字符串详解/056b29ea.png" alt="上下文环境的repr"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>str.join(iterable) </p>
+<ul>
+<li>Return a string which is the concatenation of the strings in iterable</li>
+<li>The separator between elements is the string providing this method.</li>
+<li><strong>参数是可迭代的对象</strong></li>
+<li><strong>分隔符参数提供了该方法</strong> </li>
+<li>按照指定的字符作为<strong>间隔符</strong>和<strong>可迭代对象</strong>生成新的字符串</li>
+</ul>
+</li>
+<li><p>str.rjust(width[, fillchar]) </p>
+<ul>
+<li>类似center，但是是<strong>左边填充</strong></li>
+<li>ljust： <strong>右边填充</strong></li>
+</ul>
+</li>
+<li><p>str.lower() / upper()</p>
+<ul>
+<li>对 中文字符无意义</li>
+<li>字符全部转换成大写，或者小写</li>
+<li>常用 <strong>忽略大小写</strong></li>
+</ul>
+</li>
+<li><p>str.replace(old, new[, count]) </p>
+<ul>
+<li>如果没有count参数，则替换所有的old字符</li>
+<li>如果有count参数，<strong>根据count的数量从前到后进行替换</strong></li>
+</ul>
+</li>
+<li><p>str.strip([chars]) </p>
+<ul>
+<li><strong>返回一个已经删除了最前面或者最后面chars字符的字符串</strong></li>
+<li>chars =None或者省略时，<strong>删除空格</strong></li>
+<li>chars：<strong>要删除的字符集，不是前缀或后缀，是所有值的组合都被剥离</strong></li>
+<li>The chars argument is not a prefix or suffix; rather, <strong>all combinations of its values are stripped</strong></li>
+<li>有两个形同的 rstrip()和lstrip() 表示从右边或左边删除</li>
+<li><strong>删除字符集中字符直到不属于集合中的字符截至，不能间断</strong></li>
+</ul>
+</li>
+<li><p>str.zfill(width) </p>
+<ul>
+<li>Return a copy of the string left filled with ASCII ‘0’ digits to make a string of length width.</li>
+<li>A leading sign prefix (‘+’/‘-‘) is handled by inserting the padding after the sign character rather than before</li>
+<li><strong>在左边填充0达到指定的长度</strong></li>
+<li>带有符号的对象，在<strong>符号和数值中间填充</strong></li>
+</ul>
+</li>
+<li><p>str.swapcase() </p>
+<ul>
+<li>Return a copy of the string with uppercase characters converted to lowercase and vice versa.</li>
+<li><strong>修改字符串中字符的大小写，大写转小写，小写转大写，字符级别的</strong></li>
+</ul>
+</li>
+<li><p>str.translate(table) </p>
+<ul>
+<li>Return a copy of the string in <strong>which each character</strong> has been mapped through <strong>the given translation table.</strong></li>
+<li><strong>每个元素对照翻译表</strong></li>
+<li>The table must be an object that implements indexing via <strong>getitem</strong>(), typically a mapping or sequence.</li>
+<li>翻译表必须可以通过<strong>gititem</strong>()，一般是<strong>映射和序列</strong></li>
+<li>You can use str.maketrans() to create a translation map from character-to-character mappings in different formats.</li>
+<li><strong>使用str,maketrans()创建字符-字符的映射</strong></li>
+</ul>
+</li>
+<li><p>static str.maketrans(x[, y[, z]]) </p>
+<ul>
+<li>是一个静态方法</li>
+<li>用于创建str.translate()的<strong>转换表</strong></li>
+<li><strong>一个参数的话，必须是字典</strong>，将Unicode序列，字符映射到另一个Unicode序列</li>
+<li><strong>两个参数，必须是两个长度相等的字符串</strong></li>
+<li><strong>第三个参数表示指向None，翻译的时候也是None，表示的是省略</strong><h5 id="字符串的切割"><a href="#字符串的切割" class="headerlink" title="字符串的切割"></a>字符串的切割</h5></li>
+</ul>
+</li>
+<li><p>str.split(sep=None, maxsplit=-1) </p>
+<ul>
+<li><strong>将字符串按照sep进行分割，返回包含字符的列表</strong></li>
+<li>sep 默认是 空格，<ul>
+<li>但是<strong>字符串前面或后面的空格不参与</strong> leading or trailing whitespace,在sep为None的情况下</li>
+<li><strong>字符串中间的连续空格被当作一个处理</strong></li>
+<li><strong>如果sep是其他字符，字符串中的空格也会被处理成一个元素</strong><code>&quot;&quot;</code><ul>
+<li><strong>而且不会在换行的地方产生新的元素</strong>，<code>a\nv</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>maxsplit 限制切割次数<ul>
+<li>默认 -1：即尽可能的分割</li>
+<li>列表最大有 maxsplit+1个元素</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>str.splitlines([keepends]) </p>
+<ul>
+<li>按行切割</li>
+<li>返回包含行的列表</li>
+<li><code>keepends</code> 保留边界字符，也就是换行符，默认<strong>不保留</strong></li>
+<li><img src="/2019/09/23/Python字符串详解/e3ba965f.png" alt="换行符"></li>
+</ul>
+</li>
+</ol>
+<h5 id="字符串中三种数字的对比"><a href="#字符串中三种数字的对比" class="headerlink" title="字符串中三种数字的对比"></a>字符串中三种数字的对比</h5><ul>
+<li><p>在unicode定义中，一下所有的都是数字</p>
+</li>
+<li><p><img src="/2019/09/23/Python字符串详解/ff4bf9e4.png" alt="wiki定义"></p>
+</li>
+<li><p><a href="14.数字字符串的区别.py">示例</a></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">⅐   ⅑   ⅒   ⅓   ⅔   ⅕   ⅖   ⅗   ⅘   ⅙   ⅚   ⅛   ⅜   ⅝   ⅞   ⅟</span><br><span class="line">Ⅰ   Ⅱ   Ⅲ   Ⅳ   Ⅴ   Ⅵ   Ⅶ   Ⅷ   Ⅸ   Ⅹ   Ⅺ   Ⅻ   Ⅼ   Ⅽ   Ⅾ   Ⅿ</span><br><span class="line">ⅰ   ⅱ   ⅲ   ⅳ   ⅴ   ⅵ   ⅶ   ⅷ   ⅸ   ⅹ   ⅺ   ⅻ   ⅼ   ⅽ   ⅾ   ⅿ</span><br><span class="line">ↀ   ↁ   ↂ   Ↄ   ↄ   ↅ   ↆ   ↇ   ↈ   ↉   ↊   ↋</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>isdecimal</p>
+<ul>
+<li><img src="/2019/09/23/Python字符串详解/d0a2e3f0.png" alt=" U+0660, ARABIC-INDIC DIGIT ZERO"></li>
+<li><strong>十进制数字，也就是阿拉伯数字，包含全角和半角</strong></li>
+<li>Decimal characters are those that can be used to form numbers in base 10, e.g. U+0660, ARABIC-INDIC DIGIT ZERO. </li>
+<li>Formally a decimal character is a character in the Unicode General Category “Nd”.</li>
+</ul>
+</li>
+<li><p>isdigit</p>
+<ul>
+<li>Digits include decimal characters and digits that need special handling, such as the compatibility superscript digits. </li>
+<li>This covers digits which cannot be used to form numbers in base 10, like the Kharosthi numbers.</li>
+<li>Formally, a digit is a character that has the property value Numeric_Type=Digit or Numeric_Type=Decimal.</li>
+<li><strong>包含十进制字符和一些特殊处理的数字，不一定基于十进制数字</strong></li>
+<li>经过特殊处理的如 ①，¹ 等</li>
+</ul>
+</li>
+<li><p>isnumberic</p>
+<ul>
+<li><img src="/2019/09/23/Python字符串详解/48490a2e.png" alt=" U+2155, VULGAR FRACTION ONE FIFTH"></li>
+<li>Numeric characters include digit characters, and all characters that have the Unicode numeric value property,</li>
+<li>e.g. U+2155, VULGAR FRACTION ONE FIFTH. </li>
+<li>Formally, numeric characters are those with the property value Numeric_Type=Digit, Numeric_Type=Decimal or Numeric_Type=Numeric.</li>
+<li><strong>包含digit，和所有具有Unicode数值属性的字符</strong></li>
+<li>具有Unicode数值属性的所有字符<h5 id="字符串的编码"><a href="#字符串的编码" class="headerlink" title="字符串的编码"></a>字符串的编码</h5></li>
+</ul>
+</li>
+<li><p>Return an <strong>encoded version</strong> of the string <strong>as a bytes object</strong>. </p>
+</li>
+<li><p>Default encoding is ‘utf-8’. </p>
+</li>
+<li><p>errors may be given to set a different <strong>error handling scheme</strong>. The default for errors is ‘strict’, meaning that encoding errors raise a UnicodeError</p>
+</li>
+<li><p><strong>对字符串按照提供的编码格式进行编码，转成bytes</strong></p>
+<h6 id="error-handling"><a href="#error-handling" class="headerlink" title="error handling"></a>error handling</h6></li>
+<li><p><img src="/2019/09/23/Python字符串详解/5c181c38.png" alt="error_handling"></p>
+</li>
+</ul>
+<h4 id="bytes"><a href="#bytes" class="headerlink" title="bytes"></a>bytes</h4><ul>
+<li>Bytes objects are immutable sequences of single bytes.</li>
+<li><strong>字节对象是单个字符的不可变序列</strong></li>
+<li><strong>单个字符-【0，255】</strong></li>
+<li><strong>字节</strong></li>
+<li>一个byte = 8个bit = 2<strong>8 = **256</strong> </li>
+<li><strong>ASCII 第一位表示正负标识，其余7为表示字符</strong></li>
+<li>定义：<ul>
+<li>bytes() <strong>转换成二进制表示</strong><ul>
+<li><strong>包含汉字的必须使用bytes转换成二进制</strong></li>
+<li>英文，数字 都转换成了 二进制</li>
+<li>使用十六进制表示</li>
+</ul>
+</li>
+<li>b<code>1</code>:表示字符串的二进制<ul>
+<li><strong>字符串可以使用简单的ASCII表示</strong></li>
+<li><img src="/2019/09/23/Python字符串详解/4f23c1f0.png" alt="是汉字的情况"></li>
+</ul>
+</li>
+<li>在Python中<ul>
+<li>字符串编码encode后<ul>
+<li>中文 –》 十六进制</li>
+<li>英文和数字(&lt;255): —&gt; b’英文/数字’</li>
+</ul>
+</li>
+<li>解码<ul>
+<li>b’0x*****’ —&gt;  中文</li>
+<li>b’1’ —-》 ‘1’</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>class bytes([source[, encoding[, errors]]])</code><ul>
+<li>Firstly, the syntax for bytes literals is largely the same as that for string literals, except that a b prefix is added:</li>
+<li>字节和字符串的语法基本相同，不过前面添加了<code>b</code></li>
+<li>Only ASCII characters are permitted in bytes literals (regardless of the declared source code encoding). </li>
+<li>Any binary values over 127 must be entered into bytes literals using the appropriate escape sequence.</li>
+<li>字节只使用127个ASCII字符<blockquote>
+<p>In addition to the literal forms, bytes objects can be created in a number of other ways:<br><strong>A zero-filled bytes object of a specified length</strong>: bytes(10)<br><strong>From an iterable of integers</strong>: bytes(range(20))<br>Copying existing binary data via the buffer protocol: bytes(obj)</p>
+</blockquote>
+</li>
+<li><img src="/2019/09/23/Python字符串详解/fdb26710.png" alt="bytes类"></li>
+<li><img src="/2019/09/23/Python字符串详解/3a987dab.png" alt="bytes的初始化"></li>
+<li><a href="11.字符串的编码.py">bytes的使用</a><h5 id="utf-8-与-汉字"><a href="#utf-8-与-汉字" class="headerlink" title="utf-8 与 汉字"></a>utf-8 与 汉字</h5></li>
+</ul>
+</li>
+<li>utf-8 使用三个字符表示汉字，其中1个表示结束，1个表示开始</li>
+<li>gbk 使用两个字符表示汉字，没有结束符</li>
+<li>不同的编码，对汉字表示不一致，所有解码和编码的编码格式必须一致，否则解码错误<h6 id="文件存储在硬盘和文件中存储的是二进制方式"><a href="#文件存储在硬盘和文件中存储的是二进制方式" class="headerlink" title="文件存储在硬盘和文件中存储的是二进制方式"></a>文件存储在硬盘和文件中存储的是二进制方式</h6><h6 id="编码解码"><a href="#编码解码" class="headerlink" title="编码解码"></a>编码解码</h6></li>
+<li>str 字符串 编码成 二进制 <code>encode()</code></li>
+<li>bytes 字节 解码 —》 字符串 <code>decode()</code></li>
+<li>注意：<strong>编码格式一致</strong>,否则<strong>代码错误或者乱码</strong><ul>
+<li><strong>主要是对 中文</strong></li>
+<li><strong>英文的编码在任何字符集中都是一致的</strong><ul>
+<li>字符集是在ASCII码的基础上发展的<br><img src="/2019/09/23/Python字符串详解/25935f82.png" alt="decode"><br><img src="/2019/09/23/Python字符串详解/dc268b51.png" alt="encode"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>应用：<ul>
+<li>爬虫抓取网页</li>
+</ul>
+</li>
+</ul>
+<h6 id="容错性"><a href="#容错性" class="headerlink" title="容错性"></a>容错性</h6><ul>
+<li>Bytes() 的错误处理 机制  error handling</li>
+<li>ignore  解码失败的情况下，强行解码</li>
+<li>strics  默认的，报错 <code>UnicodeDecodeError</code></li>
+</ul>
+<h5 id="字符串的模板"><a href="#字符串的模板" class="headerlink" title="字符串的模板"></a>字符串的模板</h5><ul>
+<li>字符串模板，做好模板，<strong>使用<code>$变量</code>等待传入数据</strong></li>
+<li><strong>提供了更为简单的字符串替换</strong></li>
+<li>Template String 使用了基于<strong>$变量</strong>的替换<ul>
+<li>使用单个的<code>$</code></li>
+<li><code>${identifier}</code>或则和<code>$identifier</code>:同样的作用，主要是区分占位符</li>
+</ul>
+</li>
+<li>class string.Template(template) <ul>
+<li>单个参数，即构造字符串</li>
+</ul>
+<ol>
+<li>substitute(mapping, **kwds) <ul>
+<li>执行模板替换，返回一个新的字符串</li>
+<li>mapping：类似字典的对象，<strong>键值和模板占位符匹配</strong></li>
+<li>也可以提供<strong>关键字参数</strong></li>
+</ul>
+</li>
+<li>safe_substitute(mapping, **kwds) <ul>
+<li>同上一个，稍微优化</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Python/" rel="tag"># Python</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/23/Python基础数据类型/" rel="next" title="Python基础数据类型">
+                  <i class="fa fa-chevron-left"></i> Python基础数据类型
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/09/23/Python列表，字典，集合详解/" rel="prev" title="Python列表，字典，集合详解">
+                  Python列表，字典，集合详解 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串详解"><span class="nav-number">1.</span> <span class="nav-text">字符串详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#eval-和-evec"><span class="nav-number">1.1.</span> <span class="nav-text">eval 和 evec</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#repr"><span class="nav-number">1.1.1.</span> <span class="nav-text">repr</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串的操作"><span class="nav-number">1.2.</span> <span class="nav-text">字符串的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串的三种风格"><span class="nav-number">1.2.1.</span> <span class="nav-text">字符串的三种风格</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串的基础单位"><span class="nav-number">1.2.2.</span> <span class="nav-text">字符串的基础单位</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符"><span class="nav-number">1.2.3.</span> <span class="nav-text">字符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串的截取"><span class="nav-number">1.2.4.</span> <span class="nav-text">字符串的截取</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串赋值"><span class="nav-number">1.2.5.</span> <span class="nav-text">字符串赋值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#转义字符"><span class="nav-number">1.2.6.</span> <span class="nav-text">转义字符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串常见运算符"><span class="nav-number">1.2.7.</span> <span class="nav-text">字符串常见运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#换行"><span class="nav-number">1.2.8.</span> <span class="nav-text">换行</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串的格式化"><span class="nav-number">1.3.</span> <span class="nav-text">字符串的格式化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串编码"><span class="nav-number">1.4.</span> <span class="nav-text">字符串编码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#原始字符串"><span class="nav-number">1.4.1.</span> <span class="nav-text">原始字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看字符串帮助"><span class="nav-number">1.4.2.</span> <span class="nav-text">查看字符串帮助</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串的方法和函数"><span class="nav-number">1.4.3.</span> <span class="nav-text">字符串的方法和函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串的切割"><span class="nav-number">1.4.4.</span> <span class="nav-text">字符串的切割</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串中三种数字的对比"><span class="nav-number">1.4.5.</span> <span class="nav-text">字符串中三种数字的对比</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串的编码"><span class="nav-number">1.4.6.</span> <span class="nav-text">字符串的编码</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#error-handling"><span class="nav-number">1.4.6.1.</span> <span class="nav-text">error handling</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bytes"><span class="nav-number">1.5.</span> <span class="nav-text">bytes</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#utf-8-与-汉字"><span class="nav-number">1.5.1.</span> <span class="nav-text">utf-8 与 汉字</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#文件存储在硬盘和文件中存储的是二进制方式"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">文件存储在硬盘和文件中存储的是二进制方式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#编码解码"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">编码解码</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#容错性"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">容错性</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串的模板"><span class="nav-number">1.5.2.</span> <span class="nav-text">字符串的模板</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/touxiang.jpg"
+      alt="zhao long">
+  <p class="site-author-name" itemprop="name">zhao long</p>
+  <div class="site-description" itemprop="description">自由飞翔的(>^ω^<)喵</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/zhaolong1056" title="GitHub &rarr; https://github.com/zhaolong1056" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:zhao.long1056@foxmail.com" title="E-Mail &rarr; mailto:zhao.long1056@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/ZhaoLong-study/" title="https://www.cnblogs.com/ZhaoLong-study/" rel="noopener" target="_blank">博客园</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://me.csdn.net/weixin_43980677" title="https://me.csdn.net/weixin_43980677" rel="noopener" target="_blank">CSDN</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhao long</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
