@@ -53,21 +53,24 @@
   };
 </script>
 
-  <meta name="description" content="while循环 条件表达式的结果或本身都被计算成 布尔型 当条件不满足的时候，循环结束 如：None , &amp;quot;&amp;quot;，0 都被转化成 False True 继续循环 1，” “, 1,-1,True,1.234   False 推出循环 None,0,””,False">
+  <meta name="description" content="正则表达式  Regular expression operations Python通过re库提供对正则表达式的支持 一般步骤 将正则表达式的字符串形式编译为Pattern实例 使用Pattern实例处理文本并获取匹配的结果Match实例 在match的基础上进行其他操作   Both patterns and strings to be searched can be Unicode stri">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python循环-while">
-<meta property="og:url" content="http://yoursite.com/2019/09/23/Python循环-while/index.html">
+<meta property="og:title" content="Python正则表达式">
+<meta property="og:url" content="http://yoursite.com/2019/10/01/Python正则表达式/index.html">
 <meta property="og:site_name" content="夕阳西下，断肠人在天涯">
-<meta property="og:description" content="while循环 条件表达式的结果或本身都被计算成 布尔型 当条件不满足的时候，循环结束 如：None , &amp;quot;&amp;quot;，0 都被转化成 False True 继续循环 1，” “, 1,-1,True,1.234   False 推出循环 None,0,””,False">
+<meta property="og:description" content="正则表达式  Regular expression operations Python通过re库提供对正则表达式的支持 一般步骤 将正则表达式的字符串形式编译为Pattern实例 使用Pattern实例处理文本并获取匹配的结果Match实例 在match的基础上进行其他操作   Both patterns and strings to be searched can be Unicode stri">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/09/23/Python循环-while/1cf613aa.png">
-<meta property="og:updated_time" content="2019-09-23T07:09:40.704Z">
+<meta property="og:image" content="http://yoursite.com/2019/10/01/Python正则表达式/dd61a65a.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/01/Python正则表达式/c3d6c1bf.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/01/Python正则表达式/fad52ec1.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/01/Python正则表达式/b3133f1f.png">
+<meta property="og:updated_time" content="2019-10-01T15:12:28.631Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python循环-while">
-<meta name="twitter:description" content="while循环 条件表达式的结果或本身都被计算成 布尔型 当条件不满足的时候，循环结束 如：None , &amp;quot;&amp;quot;，0 都被转化成 False True 继续循环 1，” “, 1,-1,True,1.234   False 推出循环 None,0,””,False">
-<meta name="twitter:image" content="http://yoursite.com/2019/09/23/Python循环-while/1cf613aa.png">
-  <link rel="canonical" href="http://yoursite.com/2019/09/23/Python循环-while/">
+<meta name="twitter:title" content="Python正则表达式">
+<meta name="twitter:description" content="正则表达式  Regular expression operations Python通过re库提供对正则表达式的支持 一般步骤 将正则表达式的字符串形式编译为Pattern实例 使用Pattern实例处理文本并获取匹配的结果Match实例 在match的基础上进行其他操作   Both patterns and strings to be searched can be Unicode stri">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/01/Python正则表达式/dd61a65a.png">
+  <link rel="canonical" href="http://yoursite.com/2019/10/01/Python正则表达式/">
 
 
 <script id="page-configurations">
@@ -81,7 +84,7 @@
   };
 </script>
 
-  <title>Python循环-while | 夕阳西下，断肠人在天涯</title>
+  <title>Python正则表达式 | 夕阳西下，断肠人在天涯</title>
   
 
 
@@ -258,7 +261,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/Python循环-while/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/01/Python正则表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhao long">
@@ -270,7 +273,7 @@
       <meta itemprop="name" content="夕阳西下，断肠人在天涯">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">Python循环-while
+        <h1 class="post-title" itemprop="name headline">Python正则表达式
 
           
         </h1>
@@ -286,7 +289,7 @@
                 
               
 
-              <time title="创建时间：2019-09-23 14:58:06 / 修改时间：15:09:40" itemprop="dateCreated datePublished" datetime="2019-09-23T14:58:06+08:00">2019-09-23</time>
+              <time title="创建时间：2019-10-01 23:09:10 / 修改时间：23:12:28" itemprop="dateCreated datePublished" datetime="2019-10-01T23:09:10+08:00">2019-10-01</time>
             </span>
           
             
@@ -326,107 +329,152 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h5 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h5><ul>
-<li>条件表达式的<strong>结果或本身</strong>都被计算成 <strong>布尔型</strong></li>
-<li>当<strong>条件不满足</strong>的时候，<strong>循环结束</strong></li>
-<li>如：None , <code>&quot;&quot;</code>，0 都被<strong>转化</strong>成 False</li>
-<li>True 继续循环<ul>
-<li>1，” “, 1,-1,True,1.234</li>
+        <h3 id="正则表达式-Regular-expression-operations"><a href="#正则表达式-Regular-expression-operations" class="headerlink" title="正则表达式  Regular expression operations"></a>正则表达式  Regular expression operations</h3><ul>
+<li>Python通过re库提供对正则表达式的支持</li>
+<li>一般步骤<ul>
+<li>将正则表达式的字符串形式编译为Pattern实例</li>
+<li>使用Pattern实例处理文本并获取匹配的结果Match实例</li>
+<li>在match的基础上进行其他操作</li>
 </ul>
 </li>
-<li>False 推出循环<ul>
-<li>None,0,””,False<a id="more"></a>
-<h5 id="死循环"><a href="#死循环" class="headerlink" title="死循环"></a>死循环</h5></li>
+<li>Both patterns and strings to be searched can be Unicode strings (str) as well as 8-bit strings (bytes).</li>
+<li>字符串和模板的字符串必须是str或者bytes，不能混合使用</li>
+</ul>
+<h4 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a>预编译</h4><ul>
+<li>编译：将程序翻译成二进制</li>
+<li>预编译：提前将字符串模板成二进制</li>
+<li>加快速度，编译好的模板数据可以多次使用</li>
+<li>re.compile()  对象是 re.compile(‘(.<em>)——(.</em>)’)</li>
+<li>已经编译的模板字符串可以当做<code>match</code>的参数</li>
+<li>在处理大数据的时候比较有用 </li>
+<li>复杂的表达式需要预编译</li>
+<li>re.complile(“*”).match()  <strong>常用的方式之一</strong></li>
+</ul>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><ol>
+<li>匹配字符<ul>
+<li><img src="/2019/10/01/Python正则表达式/dd61a65a.png" alt="字符匹配1"></li>
+<li><img src="/2019/10/01/Python正则表达式/c3d6c1bf.png" alt="字符匹配2"></li>
+<li><img src="/2019/10/01/Python正则表达式/fad52ec1.png" alt="字符匹配3"></li>
+<li>\b：<strong>空格和其他非单词字符</strong> 作为边界 \bthe the前面有空格或其他非单词字符  the\b  the后面有空格或者其他非单词字符</li>
+<li>\B 和上面的\b情况相反</li>
 </ul>
 </li>
-<li><strong>条件一直为True</strong>，循环会一直执行下去</li>
-<li><strong>条件表达式是常量</strong></li>
+<li>re.match(pattern, string, flags=0)  匹配从第一开始<ul>
+<li><strong>从首字母完整匹配</strong></li>
+<li><strong>且只匹配一次，后面的不再处理</strong></li>
+<li>相当于 检查前缀字符串</li>
+<li>If zero or more characters at the beginning of string match the regular expression pattern, return a corresponding match object.</li>
+<li>Return None if the string does not match the pattern; note that this is different from a zero-length match.</li>
+<li>字符串从头匹配，必须是<strong>字符串的起始位置</strong><ul>
+<li>有匹配的，返回匹配的对象<ul>
+<li>re.Match 对象</li>
+<li>包含位置和匹配对象 span match</li>
+<li><strong>使用.group()返回实际字符</strong></li>
+<li>或者直接在后面[0]，返回第一个匹配的数据</li>
 </ul>
-<h5 id="有限循环"><a href="#有限循环" class="headerlink" title="有限循环"></a>有限循环</h5><ul>
-<li><strong>条件在循环过程中会发生改变</strong>，结束程序运行</li>
-<li><strong>条件使用变量</strong><ul>
-<li>且在循环过程中 <strong>变量的值发生变化</strong></li>
+</li>
+<li>没有匹配的，返回None</li>
+<li><img src="/2019/10/01/Python正则表达式/b3133f1f.png" alt="match返回结构"></li>
+<li>&lt;re.Match object; span=(0, 18), match=’chenyuqi is a gile’&gt;<ul>
+<li>group()<strong>默认匹配字符串全部显示,省略了0</strong></li>
+<li>group()参数0,1等<strong>表示模板字符串中()的顺序对应的字符串</strong></li>
 </ul>
 </li>
 </ul>
-<h6 id="else"><a href="#else" class="headerlink" title="else"></a>else</h6><ul>
-<li>while-else: <strong>正常退出循环的时候会执行的else语句</strong>，<strong>不满足条件的时候执行</strong><ul>
-<li>包含 条件不满足退出</li>
-<li>包含 continue语句</li>
-<li>包含 <strong>刚开始条件就不满足</strong>1，直接执行else语句</li>
-<li><strong>break</strong>跳出循环，不执行else语句</li>
-</ul>
-</li>
-<li>else: 是条件表达式的<strong>临界点</strong>，处理临界点的</li>
-</ul>
-<h5 id="浮点数的科学表达式"><a href="#浮点数的科学表达式" class="headerlink" title="浮点数的科学表达式"></a>浮点数的科学表达式</h5><ul>
-<li>正数： 8.16e12</li>
-<li>负数： 8.16e-12</li>
-<li>浮点数的<strong>尾数不确定性</strong>导致在循环中不能直接处理，需要<strong>通过和0做减法</strong>，<strong>阈值筛选</strong>来使用，否则容易出现你BUG</li>
-<li>使用查询来判断浮点数<ul>
-<li>num - num1&lt; 0.00000001</li>
-</ul>
 </li>
 </ul>
-<h4 id="连续的关系运算符"><a href="#连续的关系运算符" class="headerlink" title="连续的关系运算符"></a>连续的关系运算符</h4><ul>
-<li>3 &gt; 2 &gt; 1 —-&gt; <code>3 &gt;2 and 2 &gt; 1</code></li>
-<li>and 表达式</li>
-<li>隐藏的and表达式</li>
+</li>
+<li>re.search(pattern, string, flags=0) 搜索<ul>
+<li><em>Scan through string*</em> looking for the first location where the regular expression pattern produces a match, </li>
+<li>and return a corresponding match object. </li>
+<li>Return None if no position in the string matches the pattern;</li>
+<li>在<strong>字符串中搜索匹配模板的第一个位置，返回match对象</strong></li>
+<li><strong>搜索包含就可以</strong></li>
+<li>&lt;re.Match object; span=(3, 6), match=’xyz’&gt;11</li>
 </ul>
-<h5 id="if-else-三元表达式"><a href="#if-else-三元表达式" class="headerlink" title="if -else 三元表达式"></a>if -else 三元表达式</h5><ul>
-<li>值1 if 条件表达式 else 值2</li>
-<li>True 值=值1</li>
-<li>False 值= 值2</li>
+</li>
+<li>re.findall(pattern, string, flags=0) <ul>
+<li>查找所有的元素</li>
+<li>从左到右，返回所有匹配结果<strong>字符串</strong>的<strong>列表</strong></li>
+<li>当匹配模式中包含多个组的时候，<strong>返回的是元素是元素的列表</strong></li>
+<li>字符串中模式的所有非重叠匹配</li>
 </ul>
-<h5 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h5><ul>
-<li><img src="/2019/09/23/Python循环-while/1cf613aa.png" alt="运算符优先级"></li>
+</li>
+<li>re.split(pattern, string, maxsplit=0, flags=0)  切割<ul>
+<li>Split string by the occurrences of pattern. </li>
+<li>按照字符串模式切割字符串</li>
+<li>和字符串的split函数类似，但是<strong>更为随意</strong></li>
 </ul>
-<h5 id="循环穷举-编程思想"><a href="#循环穷举-编程思想" class="headerlink" title="循环穷举-编程思想"></a>循环穷举-编程思想</h5><ul>
-<li>用于计算 10x+20Y = 10000</li>
-<li>确定x的取值范围，做循环，计算 对于的Y值，如果Y值复合条件，就输出</li>
+</li>
+<li>re.finditer(pattern, string, flags=0)   筛选<ul>
+<li><strong>同find</strong>，但是返回一个<strong>迭代器</strong></li>
 </ul>
-<h4 id="if-表达式的的编程思想"><a href="#if-表达式的的编程思想" class="headerlink" title="if-表达式的的编程思想"></a>if-表达式的的编程思想</h4><ul>
-<li>无限划分，遍历每种情况</li>
+</li>
+<li>re.sub(pattern, repl, string, count=0, flags=0) <strong>替换</strong>，<strong>拦截关键字</strong><ul>
+<li>使用repl替换根据pattern匹配到的字符串，返回新的字符串</li>
+<li><strong>默认替换所有的</strong></li>
+<li>re.subn(pattern, repl, string, count=0, flags=0) <ul>
+<li>原理同sub</li>
+<li>但是返回的是一个元素<code>(new_string, number_of_subs_made)</code> （新的字符串，替换次数）</li>
 </ul>
-<h5 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h5><ol>
-<li>数据</li>
-<li>指令</li>
+</li>
+</ul>
+</li>
 </ol>
-<h5 id="语音识别"><a href="#语音识别" class="headerlink" title="语音识别"></a>语音识别</h5><ul>
-<li>需要使用 win32 包<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> win32com.client  <span class="comment"># 系统客户端的包</span></span><br><span class="line">speaker = win32com.client.Dispatch(<span class="string">"SAPI.SPVOICE"</span>)  <span class="comment"># 系统接口</span></span><br><span class="line">speaker.Speak(<span class="string">"陈钰琪，1992年7月29日出生于四川省成都市"</span>)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h5 id="输入输出的重定向"><a href="#输入输出的重定向" class="headerlink" title="输入输出的重定向"></a>输入输出的重定向</h5><ul>
-<li>使用符号</li>
-<li><code>&gt;</code>  写入文本，覆盖 </li>
-<li><code>&gt;&gt;</code>  写入文本，追加</li>
-<li><code>&lt;</code> 从文件中读取</li>
-<li><strong>可以连接配合使用</strong></li>
-</ul>
-<h3 id="None"><a href="#None" class="headerlink" title="None"></a>None</h3><ul>
-<li>空对象 。</li>
-<li>属于 NoneType类型</li>
-<li>在条件表达式中会自动转化为 False</li>
-</ul>
-<h4 id="嵌套逻辑"><a href="#嵌套逻辑" class="headerlink" title="嵌套逻辑"></a>嵌套逻辑</h4><ul>
-<li>特别注意： 层级结构 空格或Tab不能混用</li>
-</ul>
-<ol>
-<li>不是  if- elif- elif-else</li>
-<li>是  if - if - if</li>
-<li>条件的<strong>等级是并列,且满足其中一个条件</strong>的情况下，使用if - elif 语句<ul>
-<li>条件的<strong>顺序</strong>是相连的，非顺序，需要添加区域条件</li>
-<li><strong>隐含条件</strong></li>
-<li>对嵌套的if-if 可以<strong>简化</strong></li>
+<h4 id="贪婪模式和非贪婪模式"><a href="#贪婪模式和非贪婪模式" class="headerlink" title="贪婪模式和非贪婪模式"></a>贪婪模式和非贪婪模式</h4><ul>
+<li>是正则表达式匹配的两种模式<ul>
+<li>贪婪模式：匹配<strong>尽可能多</strong>的字符</li>
+<li>非贪婪匹配模式：匹配<strong>尽可能少</strong>的字符<ul>
+<li>使用<code>?</code></li>
 </ul>
 </li>
-<li>条件的的<strong>等级是承接，必须全部满足的</strong>的情况下，使用 if-else 语句</li>
+</ul>
+</li>
+<li>默认贪婪模式</li>
+</ul>
+<h5 id="常用的简单正则表达式"><a href="#常用的简单正则表达式" class="headerlink" title="常用的简单正则表达式"></a>常用的简单正则表达式</h5><ol>
+<li><p>QQ号码</p>
+<ul>
+<li>^<a href="\d{4,10}">1-9</a>$</li>
+</ul>
+</li>
+<li><p>Phone</p>
+<ul>
+<li>^1<a href="\d{9}">34578</a>$</li>
+</ul>
+</li>
+<li><p>电话</p>
+<ul>
+<li>^0<a href="\d{1,2}">1-9</a>-<a href="\d{6-7}">1-9</a></li>
+</ul>
+</li>
+<li><p>IP地址</p>
+<ul>
+<li>^(\d){1,3}.(\d){1,3}.(\d){1,3}.(\d){1,3}$  简单的，不准去</li>
+<li>0-255  0-9 19-99 100-199 200-255  200-249 250-255<ul>
+<li>^(\d | [1-9]\d | 1(\d){2} | 2[0-4]\d | 25[0-5]), (\d | [1-9]\d | 1(\d){2} | 2[0-4]\d | 25[0-5]),<br>(\d | [1-9]\d | 1(\d){2} | 2[0-4]\d | 25[0-5]),(\d | [1-9]\d | 1(\d){2} | 2[0-4]\d | 25[0-5])$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>邮箱</p>
+<ul>
+<li>\w+</li>
+<li>\w(.|_|\w)+</li>
+<li>\w(.|_|\w)+@</li>
+<li>\w(.|_|\w)+@(\w+.){1,3}\w+</li>
+</ul>
+</li>
+<li><p>出生日期</p>
+<ul>
+<li>1985-05-22  01-12  01-31</li>
+<li>(18\d{2}| 19\d{2} | 20[0-1]\d) 年份</li>
+<li>(1[0-2] | 0[1-9])  月份</li>
+<li>0[1-9] |[1-2][0-9]| 3[0-1] 日期</li>
+</ul>
+</li>
 </ol>
-<h4 id="运算符的优先级和结合性"><a href="#运算符的优先级和结合性" class="headerlink" title="运算符的优先级和结合性"></a>运算符的优先级和结合性</h4><ul>
-<li>运算符的<strong>优先级</strong>和<strong>结合方向</strong>决定了<strong>运算符的计算顺序</strong></li>
-<li>结合性：同意优先级下表达式的计算顺序</li>
-</ul>
+<p>​    </p>
 
     </div>
 
@@ -452,15 +500,15 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
+                <a href="/2019/10/01/Python面对对象编程2/" rel="next" title="Python面对对象编程2">
+                  <i class="fa fa-chevron-left"></i> Python面对对象编程2
+                </a>
+              
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/09/23/Python循环-for/" rel="prev" title="Python循环-for">
-                  Python循环-for <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -509,7 +557,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#while循环"><span class="nav-number">1.</span> <span class="nav-text">while循环</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#死循环"><span class="nav-number">2.</span> <span class="nav-text">死循环</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#有限循环"><span class="nav-number">3.</span> <span class="nav-text">有限循环</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#else"><span class="nav-number">3.1.</span> <span class="nav-text">else</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#浮点数的科学表达式"><span class="nav-number">4.</span> <span class="nav-text">浮点数的科学表达式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#连续的关系运算符"><span class="nav-number"></span> <span class="nav-text">连续的关系运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#if-else-三元表达式"><span class="nav-number">1.</span> <span class="nav-text">if -else 三元表达式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#运算符优先级"><span class="nav-number">2.</span> <span class="nav-text">运算符优先级</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#循环穷举-编程思想"><span class="nav-number">3.</span> <span class="nav-text">循环穷举-编程思想</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#if-表达式的的编程思想"><span class="nav-number"></span> <span class="nav-text">if-表达式的的编程思想</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#内存"><span class="nav-number">1.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#语音识别"><span class="nav-number">2.</span> <span class="nav-text">语音识别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输入输出的重定向"><span class="nav-number">3.</span> <span class="nav-text">输入输出的重定向</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#None"><span class="nav-number"></span> <span class="nav-text">None</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#嵌套逻辑"><span class="nav-number"></span> <span class="nav-text">嵌套逻辑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运算符的优先级和结合性"><span class="nav-number"></span> <span class="nav-text">运算符的优先级和结合性</span></a></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式-Regular-expression-operations"><span class="nav-number">1.</span> <span class="nav-text">正则表达式  Regular expression operations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预编译"><span class="nav-number">1.1.</span> <span class="nav-text">预编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法"><span class="nav-number">1.2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#贪婪模式和非贪婪模式"><span class="nav-number">1.3.</span> <span class="nav-text">贪婪模式和非贪婪模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#常用的简单正则表达式"><span class="nav-number">1.3.1.</span> <span class="nav-text">常用的简单正则表达式</span></a></li></ol></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->

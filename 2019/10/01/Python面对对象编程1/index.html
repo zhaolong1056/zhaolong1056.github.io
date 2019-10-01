@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.0">
+  <link rel="alternate" href="/atom.xml" title="夕阳西下，断肠人在天涯" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","unescape":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="面对对象的编程思想 函数是对代码块的抽象，代码重用 面向对象编程是对代码重用的更高的方式 面向过程：根据业务逻辑从上到下写代码 函数式： 将某些功能代码封装到函数中，无需重复编写整个功能代码的实现，仅调用即可 面向对象：将函数进行封装，更快速的开发程序，减少重复代码的编写过程 代码的重用 数据的重用n 数据的封装，独立性    类与对象 类：蓝图，模型 对象： 根据类实例处理的，实际对应的  类的">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python面对对象编程1">
+<meta property="og:url" content="http://yoursite.com/2019/10/01/Python面对对象编程1/index.html">
+<meta property="og:site_name" content="夕阳西下，断肠人在天涯">
+<meta property="og:description" content="面对对象的编程思想 函数是对代码块的抽象，代码重用 面向对象编程是对代码重用的更高的方式 面向过程：根据业务逻辑从上到下写代码 函数式： 将某些功能代码封装到函数中，无需重复编写整个功能代码的实现，仅调用即可 面向对象：将函数进行封装，更快速的开发程序，减少重复代码的编写过程 代码的重用 数据的重用n 数据的封装，独立性    类与对象 类：蓝图，模型 对象： 根据类实例处理的，实际对应的  类的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/10/01/Python面对对象编程1/06c1a6cd.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/01/Python面对对象编程1/03e6fcdc.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/01/Python面对对象编程1/b94530b4.png">
+<meta property="og:updated_time" content="2019-10-01T15:12:52.977Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python面对对象编程1">
+<meta name="twitter:description" content="面对对象的编程思想 函数是对代码块的抽象，代码重用 面向对象编程是对代码重用的更高的方式 面向过程：根据业务逻辑从上到下写代码 函数式： 将某些功能代码封装到函数中，无需重复编写整个功能代码的实现，仅调用即可 面向对象：将函数进行封装，更快速的开发程序，减少重复代码的编写过程 代码的重用 数据的重用n 数据的封装，独立性    类与对象 类：蓝图，模型 对象： 根据类实例处理的，实际对应的  类的">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/01/Python面对对象编程1/06c1a6cd.png">
+  <link rel="canonical" href="http://yoursite.com/2019/10/01/Python面对对象编程1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Python面对对象编程1 | 夕阳西下，断肠人在天涯</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">夕阳西下，断肠人在天涯</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">好好学习，天天向上</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/01/Python面对对象编程1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhao long">
+      <meta itemprop="description" content="自由飞翔的(>^ω^<)喵">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夕阳西下，断肠人在天涯">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Python面对对象编程1
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-01 23:04:01 / 修改时间：23:12:52" itemprop="dateCreated datePublished" datetime="2019-10-01T23:04:01+08:00">2019-10-01</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="面对对象的编程思想"><a href="#面对对象的编程思想" class="headerlink" title="面对对象的编程思想"></a>面对对象的编程思想</h3><ul>
+<li>函数是对代码块的抽象，代码重用</li>
+<li>面向对象编程是对<strong>代码重用的更高的方式</strong></li>
+<li>面向过程：根据<strong>业务逻辑从上到下</strong>写代码</li>
+<li>函数式： 将某些功能代码封装到函数中，无需重复编写整个功能代码的实现，仅调用即可</li>
+<li>面向对象：将函数进行封装，更快速的开发程序，减少重复代码的编写过程<ul>
+<li>代码的重用</li>
+<li>数据的重用n</li>
+<li>数据的封装，独立性</li>
+</ul>
+</li>
+</ul>
+<h4 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h4><ul>
+<li>类：蓝图，模型</li>
+<li>对象： 根据类实例处理的，实际对应的</li>
+</ul>
+<h5 id="类的定义"><a href="#类的定义" class="headerlink" title="类的定义"></a>类的定义</h5><ul>
+<li>class 关键字</li>
+<li>类型 &lt;calss “type”&gt;  数据类型</li>
+<li>可以初始化多个对象 </li>
+<li>对对象的属性和方法进行了封装<ul>
+<li>数据的重用 属性  </li>
+<li>代码的重用 方法</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>一般语法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 类名称<span class="params">()</span>:</span></span><br><span class="line">   代码块</span><br><span class="line">   属性： 变量   使用属性 self.变量</span><br><span class="line">   方法   函数   第一个参数 self</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类的方法</p>
+<ul>
+<li>类的方法是 bound method，绑定在self上</li>
+<li>&lt;bound method People.say of &lt;<strong>main</strong>.People object at 0x000001FA8D05A188&gt;&gt;</li>
+<li>所有的实例对象共用一个方法</li>
+</ul>
+</li>
+<li><p>本质</p>
+<ul>
+<li>函数重用： 方法地址一样，共享的，绑定方法区分<strong>谁调用函数</strong>，<strong>方法共享</strong></li>
+<li>数据： 属性地址不一样，属于每一个对象，<strong>属性对立</strong></li>
+</ul>
+</li>
+<li><p>构造函数 <strong>init</strong>(self)</p>
+<ul>
+<li>对象创建时，自动运行的函数</li>
+<li>传递参数，初始化对象</li>
+<li>对应的是创建对象，实例化的<strong>参数列表</strong></li>
+<li>一般对象的属性是放在构造函数中的</li>
+<li><strong>类中默认包含构造函数</strong></li>
+</ul>
+</li>
+<li><p>析构函数 <strong>del</strong>(self)</p>
+<ul>
+<li>对象删除时或者生命周期结束时，自动运行的函数</li>
+</ul>
+</li>
+<li><p>动态绑定增加属性和方法</p>
+<ul>
+<li>迭代开发</li>
+<li>在对象实例化之后，使用<code>对象.属性=数值</code>进行增加属性</li>
+<li>属性独属于该对象，其他对象不能共享</li>
+<li>同列 方法类似<ul>
+<li>只能使用lambda</li>
+<li>不能使用self</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>重载运算符</p>
+<ul>
+<li><strong>不同的类型对运算符有不同的解释</strong></li>
+<li>针对<strong>本类型</strong>，对运算符进行新的解释</li>
+<li><strong>不能出现对一个运算符的多种解释</strong></li>
+</ul>
+</li>
+<li><p>有名对象和匿名对象</p>
+<ul>
+<li>c = People()  有名对象</li>
+<li>People()   匿名对象</li>
+</ul>
+</li>
+<li><p>类的复制</p>
+<ul>
+<li>类似对象复制</li>
+<li>属于<strong>地址引用</strong></li>
+</ul>
+</li>
+</ol>
+<h5 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h5><ul>
+<li>类()</li>
+<li>类的实例化</li>
+<li>类型 &lt;class ‘<strong>main</strong>.star’&gt; 数据类型实例化</li>
+</ul>
+<h5 id="self"><a href="#self" class="headerlink" title="self"></a>self</h5><ul>
+<li>self指向类实例化的对象，实例化以后的对象地址</li>
+<li>self只能用在绑定的方法上，就是<strong>参数包含self的方法</strong></li>
+<li>在类定义中，self可以调用属性和方法</li>
+<li>属性和方法<strong>属于实例化的对象</strong></li>
+<li>在类定义中使用属性必须是self.属性</li>
+<li>方法的第一个参数必须是self<ul>
+<li>在类定义中，使用定义的方法也必须是self.方法</li>
+</ul>
+</li>
+<li>只应用于类定义的内部</li>
+<li><img src="/2019/10/01/Python面对对象编程1/06c1a6cd.png" alt="类本质"></li>
+<li><img src="/2019/10/01/Python面对对象编程1/03e6fcdc.png" alt="类本质"></li>
+</ul>
+<h5 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h5><ul>
+<li>函数的参数本质是 <strong>浅拷贝</strong>，<strong>地址拷贝</strong></li>
+<li><strong>不能改变原来数据的地址</strong><ul>
+<li>字符串，数字；作为参数，原来的数据不会改变<ul>
+<li>字符串和数字存储的是<strong>常量</strong></li>
+</ul>
+</li>
+<li>列表，字典 和 自定义类实例化的对象<ul>
+<li>列表，字典，和 自定义对象 是 一段内存地址</li>
+<li>不能改变地址，<strong>但是可以改变内部元素存储的地址</strong><h5 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h5></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>私有变量<ul>
+<li>__变量: 变量前面<strong>加双下划线</strong></li>
+<li>只能在类定义的内部修改，<strong>对象不能随意修改</strong>，只能通过set和get函数获取和修改</li>
+<li>私有变量在内部实际存储的是<code>_classname__私有变量</code></li>
+<li><img src="/2019/10/01/Python面对对象编程1/b94530b4.png" alt="私有变量"></li>
+<li>意义<ul>
+<li>保护数据，设计权限</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>私有方法<ul>
+<li>同私有变量一样，禁止被人随意使用</li>
+<li>私有方法 <code>__方法名</code>，在方法名前加__双下划线，拒绝外部访问</li>
+<li>同理，私有方法可以使用_classname__方法访问</li>
+</ul>
+</li>
+<li>私有的本质<ul>
+<li>私有变量的本质就是讲方法和属性的名称重新命名了</li>
+<li><code>__ ----&gt; _ClassName__</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="tkinter"><a href="#tkinter" class="headerlink" title="tkinter"></a>tkinter</h4><ul>
+<li>窗体模块,界面  </li>
+</ul>
+<h4 id="消息机制"><a href="#消息机制" class="headerlink" title="消息机制"></a>消息机制</h4><ul>
+<li>操作系统的系统进程</li>
+<li>通过消息原理控制操作系统</li>
+<li>所有的windows应用都是消息驱动的<ul>
+<li>所有的操作都被当做消息处理</li>
+<li>进程被放到一张表中，等待消息</li>
+<li>windows系统提供一个死循环，检测鼠标，键盘，每检测到一个操作，添加对应的消息</li>
+</ul>
+</li>
+<li>消息循环<ul>
+<li>得到消息之后，会将信息传递给所有的进程队列</li>
+<li>哪个进程可以执行，就执行</li>
+<li>callback  <strong>消息触发进程 消息回调机制</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="异常处理机制"><a href="#异常处理机制" class="headerlink" title="异常处理机制"></a>异常处理机制</h4><ul>
+<li><p>关键字 try except else finally</p>
+</li>
+<li><p>异常和错误</p>
+<ul>
+<li><p>错误Error：大多指语法错误:解释器检查出来的</p>
+<ul>
+<li>常见错误<ul>
+<li>常见错误：</li>
+<li>name Error 变量没定义</li>
+<li>Systax Error 语法错误</li>
+<li>IO Error 文件错误</li>
+<li>Zero DivisionError 10/0,除零错误</li>
+<li>Value Error 值错误，例如a = int（‘aa’）</li>
+<li>keyboard Interrupt 强制终止程序产生，ctrl+c强制终止程序运行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>异常Exception、：不完整或者不合法输入或者计算出现问题</p>
+<ul>
+<li>异常产生，检查到错误且解释器认为是异常，抛出异常</li>
+<li>异常处理，截获异常，忽略或终止程序处理异常</li>
+</ul>
+</li>
+<li><p>处理异常</p>
+<ul>
+<li>语法<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    语句块</span><br><span class="line"><span class="keyword">except</span> 异常类型<span class="number">1</span>：</span><br><span class="line">    处理语句</span><br><span class="line"><span class="keyword">except</span> 异常类型<span class="number">2</span>:</span><br><span class="line">    处理语句</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    没有出现异常，执行的语句</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    一定执行的语句</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>raise</p>
+<ul>
+<li>显示的引发异常<ul>
+<li>可以是<strong>非语法的异常</strong>，自己设定的异常</li>
+</ul>
+</li>
+<li>一旦执行raise语句，后面的语句不会再执行，程序结束</li>
+<li>raise 的参数不能被except处理</li>
+<li><code>raise [Exception [, args [, traceback]]]</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="关键字-with-as"><a href="#关键字-with-as" class="headerlink" title="关键字 with as"></a>关键字 with as</h4><ul>
+<li>根据上下文管理，可以自动的关闭打开的文件 </li>
+</ul>
+<h4 id="assert-断言"><a href="#assert-断言" class="headerlink" title="assert 断言"></a>assert 断言</h4><ul>
+<li>判断一个表达式</li>
+<li>在表达式为False时触发异常</li>
+<li><code>assert expression [, arguments]</code> </li>
+<li>等价 <code>if not expression:  raise AssertionError(arguments)</code></li>
+<li>AssertionError: 被除数不能为0</li>
+<li>对 raise的 进一步细化<ul>
+<li>表达式为Flase的情况下触AssertError</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Python/" rel="tag"># Python</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/01/Python文件读写/" rel="next" title="Python文件读写">
+                  <i class="fa fa-chevron-left"></i> Python文件读写
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/10/01/Python面对对象编程2/" rel="prev" title="Python面对对象编程2">
+                  Python面对对象编程2 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#面对对象的编程思想"><span class="nav-number">1.</span> <span class="nav-text">面对对象的编程思想</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类与对象"><span class="nav-number">1.1.</span> <span class="nav-text">类与对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类的定义"><span class="nav-number">1.1.1.</span> <span class="nav-text">类的定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对象"><span class="nav-number">1.1.2.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#self"><span class="nav-number">1.1.3.</span> <span class="nav-text">self</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#函数"><span class="nav-number">1.1.4.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#属性"><span class="nav-number">1.1.5.</span> <span class="nav-text">属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tkinter"><span class="nav-number">1.2.</span> <span class="nav-text">tkinter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息机制"><span class="nav-number">1.3.</span> <span class="nav-text">消息机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异常处理机制"><span class="nav-number">1.4.</span> <span class="nav-text">异常处理机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关键字-with-as"><span class="nav-number">1.5.</span> <span class="nav-text">关键字 with as</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#assert-断言"><span class="nav-number">1.6.</span> <span class="nav-text">assert 断言</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/touxiang.jpg"
+      alt="zhao long">
+  <p class="site-author-name" itemprop="name">zhao long</p>
+  <div class="site-description" itemprop="description">自由飞翔的(>^ω^<)喵</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/zhaolong1056" title="GitHub &rarr; https://github.com/zhaolong1056" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:zhao.long1056@foxmail.com" title="E-Mail &rarr; mailto:zhao.long1056@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/ZhaoLong-study/" title="https://www.cnblogs.com/ZhaoLong-study/" rel="noopener" target="_blank">博客园</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://me.csdn.net/weixin_43980677" title="https://me.csdn.net/weixin_43980677" rel="noopener" target="_blank">CSDN</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhao long</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

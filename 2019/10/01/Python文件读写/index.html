@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.0">
+  <link rel="alternate" href="/atom.xml" title="夕阳西下，断肠人在天涯" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","unescape":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="字符串的输出 str 返回一个用户易读的表达形式   repr 返回一个解释器易读的表达形式 字符串 带引号和转义   返回包含对象的可打印形式的字符串 可以处理任何类型，表示类型 返回对象的字符串形式 字符串当作一个对象，再次当作普通对象处理 其他类型的也是一致的   eval(repr(A)) == A 调用repr 函数 compute the “official” string repre">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python文件读写">
+<meta property="og:url" content="http://yoursite.com/2019/10/01/Python文件读写/index.html">
+<meta property="og:site_name" content="夕阳西下，断肠人在天涯">
+<meta property="og:description" content="字符串的输出 str 返回一个用户易读的表达形式   repr 返回一个解释器易读的表达形式 字符串 带引号和转义   返回包含对象的可打印形式的字符串 可以处理任何类型，表示类型 返回对象的字符串形式 字符串当作一个对象，再次当作普通对象处理 其他类型的也是一致的   eval(repr(A)) == A 调用repr 函数 compute the “official” string repre">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/10/01/Python文件读写/b86e9a1d.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/01/Python文件读写/86a02076.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/01/Python文件读写/a85bdfe5.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/01/Python文件读写/462625a9.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/01/Python文件读写/dbf2d65e.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/01/Python文件读写/37c41898.png">
+<meta property="og:updated_time" content="2019-10-01T15:13:11.843Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python文件读写">
+<meta name="twitter:description" content="字符串的输出 str 返回一个用户易读的表达形式   repr 返回一个解释器易读的表达形式 字符串 带引号和转义   返回包含对象的可打印形式的字符串 可以处理任何类型，表示类型 返回对象的字符串形式 字符串当作一个对象，再次当作普通对象处理 其他类型的也是一致的   eval(repr(A)) == A 调用repr 函数 compute the “official” string repre">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/01/Python文件读写/b86e9a1d.png">
+  <link rel="canonical" href="http://yoursite.com/2019/10/01/Python文件读写/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Python文件读写 | 夕阳西下，断肠人在天涯</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">夕阳西下，断肠人在天涯</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">好好学习，天天向上</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/01/Python文件读写/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhao long">
+      <meta itemprop="description" content="自由飞翔的(>^ω^<)喵">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夕阳西下，断肠人在天涯">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Python文件读写
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-01 22:58:49 / 修改时间：23:13:11" itemprop="dateCreated datePublished" datetime="2019-10-01T22:58:49+08:00">2019-10-01</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="字符串的输出"><a href="#字符串的输出" class="headerlink" title="字符串的输出"></a>字符串的输出</h4><ol>
+<li>str<ul>
+<li>返回一个<strong>用户易读</strong>的表达形式</li>
+</ul>
+</li>
+<li>repr<ul>
+<li>返回一个<strong>解释器易读</strong>的表达形式<ul>
+<li>字符串 带引号和转义</li>
+</ul>
+</li>
+<li>返回<strong>包含对象的可打印形式的字符串</strong></li>
+<li>可以处理任何类型，表示类型</li>
+<li>返回<strong>对象的字符串形式</strong><ul>
+<li>字符串当作一个对象，再次当作普通对象处理</li>
+<li>其他类型的也是一致的</li>
+</ul>
+</li>
+<li>eval(repr(A)) == A</li>
+<li>调用<strong>repr</strong> 函数</li>
+<li>compute the “official” string representation of an object</li>
+<li>Return the <strong>canonical</strong> string representation of the object.</li>
+</ul>
+</li>
+<li>对比<ul>
+<li>对于一般数据而言，相同</li>
+<li>在命令行中对比比较好</li>
+<li>str统一转换为字符串，<strong>看不到类型</strong></li>
+</ul>
+</li>
+</ol>
+<h5 id="标准输入和输出"><a href="#标准输入和输出" class="headerlink" title="标准输入和输出"></a>标准输入和输出</h5><ul>
+<li><strong>标准的输入和输出是</strong> <em>控制台</em></li>
+<li>可以使用<strong>重定向符号</strong> 将输入和输出定向到其他地方</li>
+<li><code>shu.py &lt; 1.txt  &gt; 2.txt</code><ul>
+<li>从1.txt 读入内容</li>
+<li>向2.txt 输出内容</li>
+</ul>
+</li>
+</ul>
+<h3 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h3><h4 id="文件对象-file-object"><a href="#文件对象-file-object" class="headerlink" title="文件对象 file object"></a>文件对象 file object</h4><ul>
+<li>File objects are also called <strong>file-like objects</strong> or <strong>streams.</strong></li>
+<li>&lt;<strong>_io.BufferedReader</strong> name=’E:\项目\Python\zhaolong\study\09-19\txt\6.chuci.txt’</li>
+<li>类文件对象或流</li>
+<li>三类文件对象<ul>
+<li>raw binary files, buffered binary files and text files.</li>
+<li>二进制文件（原始二进制文件，缓冲二进制文件），文本文件</li>
+</ul>
+</li>
+<li>将面向文件的API暴露给底层资源对象</li>
+<li>根据创建文件的方式，文件对象可以调教对真是存储文件或其它类型存储或通信设备的访问</li>
+<li><strong>创建文件对象的规范方法是open()函数</strong></li>
+</ul>
+<ol>
+<li>open(file, mode=’r’, buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None) <ul>
+<li>Open file and return a <strong>corresponding file object</strong>. If the file cannot be opened, an OSError is raised.</li>
+<li>file is a path-like object giving the pathname (absolute or relative to the current working directory) of the file to be opened</li>
+<li>or an integer file descriptor of the file to be wrapped. </li>
+<li>(If a file descriptor is given, it is closed when the returned I/O object is closed, unless closefd is set to False.)</li>
+<li>file 是一个<strong>类似路径的对象</strong><ul>
+<li>要打开文件的路径名(绝对路径或者当前工作目录的相对路径)</li>
+<li>整型的文件描述符</li>
+</ul>
+</li>
+<li>mode is an optional string that specifies the mode in which the file is opened<ul>
+<li>mode 可选，默认’r’ 同义词 <code>rt</code> read text</li>
+<li>指定文件的打开模式</li>
+<li><img src="/2019/10/01/Python文件读写/b86e9a1d.png" alt="常见mode"></li>
+</ul>
+</li>
+<li>错误处理机制<ul>
+<li>errors：如何处理编码和解码错误</li>
+<li><img src="/2019/10/01/Python文件读写/86a02076.png" alt="错误处理"></li>
+<li>常用的时<ul>
+<li>ignore：忽略错误，强制解码</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Python区分文本和二进制I/O，<ul>
+<li>二进制打开模式’b’，返回bytes，没有任何编码</li>
+<li>文本打开模式<code>t</code>,返回str，使用平台相关的编码或者指定的编码进行解码 </li>
+<li>windows系统文本中默认的gbk编码格式,open中没有标明编码格式的话，默认使用系统编码格式<ul>
+<li>UnicodeDecodeError: ‘gbk’ codec can’t decode byte 0x9f in position 22: illegal multibyte sequence </li>
+</ul>
+</li>
+<li><img src="/2019/10/01/Python文件读写/a85bdfe5.png" alt="win10默认的编码"></li>
+<li>默认中文环境<em>gbk，ansi</em>，<strong>系统自动寻找编码解码和编码</strong></li>
+<li>使用多个字节来代表一个字符的各种汉字延伸编码方式，称为 ANSI 编码;<ul>
+<li>在简体中文Windows操作系统中，ANSI 编码代表 GBK 编码；在繁体中文Windows操作系统中，ANSI编码代表Big5；在日文Windows操作系统中，ANSI 编码代表 Shift_JIS 编码</li>
+<li>不同 ANSI 编码之间互不兼容</li>
+</ul>
+</li>
+<li>python的默认编码也是 utf-8<ol start="2">
+<li>中文写入</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>中文需要使用编码</li>
+<li>常用’’utf-8’或者’gbk’</li>
+<li>使用utf-8编码，以二进制写入，<strong>不会受平台影响</strong></li>
+<li>不同的编码会导致编码失败，主要时某个编码的字符，其他编码没有<ul>
+<li>解决方案: 在编码重合度很高的情况下，忽略编码错误，也可以解码，但也可能出现完全乱码</li>
+</ul>
+</li>
+<li><img src="/2019/10/01/Python文件读写/462625a9.png" alt="win10的文件编码"></li>
+<li><img src="/2019/10/01/Python文件读写/dbf2d65e.png" alt="win10文件的本质"></li>
+<li>由于系统编码的不确定性，<strong>指定编码</strong>，或者直接<strong>进行二进制写入</strong></li>
+<li><strong>编码必须保持一致</strong></li>
+</ul>
+</li>
+<li>缓存区 buffer<ul>
+<li><strong>数据写入文件非实时的</strong></li>
+<li>用于设置 <strong>缓冲 策略</strong><ul>
+<li>0- 关闭缓存 - 仅在二进制模式下</li>
+<li>1- line buffer 行缓存，仅在文本模式下可用</li>
+<li>&gt; 1 指定大小的块缓存区 byte</li>
+<li>buffering is an optional integer used to set the buffering policy.</li>
+<li>Pass 0 to switch buffering off (only allowed in binary mode), </li>
+<li>1 to select line buffering (only usable in text mode), </li>
+<li>and an integer &gt; 1 to indicate the size in bytes of a fixed-size chunk buffer.</li>
+</ul>
+</li>
+<li>默认情况<ol>
+<li>Binary files are buffered in fixed-size chunks; 4096 or 8192 bytes long.</li>
+<li>“Interactive” text files (files for which isatty() returns True) use line buffering.</li>
+<li>Other text files use the policy described above for binary files.</li>
+</ol>
+</li>
+<li>flush 方法<ul>
+<li>实时写入</li>
+<li><strong>如果程序未正常结束，也可以保证数据已经写入</strong></li>
+</ul>
+</li>
+<li><img src="/2019/10/01/Python文件读写/37c41898.png" alt="文件读取写入"></li>
+</ul>
+</li>
+<li>读取文件<ul>
+<li>内存模式 read readlines</li>
+<li>硬盘模式：readline</li>
+</ul>
+ 4.1 read(size=-1) <pre><code>* Read and return at most size characters from the stream as a single str. 
+* If size is negative or None, reads until EOF.
+* 按照size读取字符，作为一个新的字符串
+* 如果size为空，则 全部去读</code></pre> 4.2 readline(size=-1) <pre><code>* Read until newline or EOF and return a single str. 
+* If the stream is already at EOF, an empty string is returned.
+* If size is specified, **at most size characters will be read**
+* 读取一行或者到eof
+* size指定，读取指定数量的字符,但是遇到换行符也会停止
+    * 意思就是 相当于 由**两个换行符**
+        * 指定的字符数 size
+        * 换行符 </code></pre> 4.3 readlines(hint=-1) <pre><code>* Read and return a list of lines from the stream. 
+* hint can be specified to control the number of lines read: 
+* no more lines will be read if the total size (in bytes/characters) of all lines so far exceeds hint.
+* 返回一个由行组成的列表，每行包含换行符
+* 参数是行数，指定读取的行数(包含这次**已读取的行数**)</code></pre></li>
+<li>文件指针<ul>
+<li>文件对象是<strong>流对象</strong></li>
+<li>包含 <strong>文件指针</strong><ul>
+<li><strong>会指向当前读取的字符</strong></li>
+<li><strong>文件指针只会向后运动，不会向前移动</strong></li>
+<li>当文件指针指向EOF，文件读取结束</li>
+</ul>
+</li>
+<li>函数<ol>
+<li>tell() <ul>
+<li>Return the current stream position as <strong>an opaque number.</strong> </li>
+<li>The number does not usually represent a number of bytes in the underlying binary storage.</li>
+<li>返回当前的文件指针<strong>指向的位置</strong>,并不是字符数</li>
+<li>该数字通常不代表底层二进制存储中的多个字节。 汉字 3  符号  3  从0开始</li>
+</ul>
+</li>
+<li>seek(offset[, whence]) <ul>
+<li>设置当前块中文件指针的位置</li>
+<li>whence 可选<ul>
+<li>0 默认 绝对位置</li>
+<li>1 相对于当前的位置  io.UnsupportedOperation: can t do nonzero cur-relative seeks<ul>
+<li>file 不做非0相对搜索</li>
+</ul>
+</li>
+<li>2 相对于文件EOF</li>
+</ul>
+</li>
+<li>常用作<strong>回到文件开头</strong>,末尾不是EOF，而是 数值</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>文件对象的遍历<ul>
+<li>文件对象拥有<code>__next__</code>和<code>__iter__</code>特殊方法，支持迭代协议，属于<strong>可迭代对象</strong></li>
+<li>for line in fileobj:<ul>
+<li>不等同于 fileobj.readlins（）,一次性读取到内存中</li>
+<li>而是按照next函数，<strong>一行行的取出数据</strong><h3 id="pickle-数据序列和反序列化，常用于持久化，保存到文件"><a href="#pickle-数据序列和反序列化，常用于持久化，保存到文件" class="headerlink" title="pickle 数据序列和反序列化，常用于持久化，保存到文件"></a>pickle 数据序列和反序列化，常用于持久化，保存到文件</h3></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>pickle Python object serialization</li>
+<li>The pickle module implements binary protocols for serializing and de-serializing a Python object structure</li>
+<li><strong>pickle模块为python对象结构实现序列化和反序列化的二进制协议</strong></li>
+<li>“Pickling” is the process whereby a Python object hierarchy is converted into a byte stream</li>
+<li>pickle 是 <strong>将python对象层次结构转化为字节流的过程</strong></li>
+<li>unpickle 是一个反向操作<ul>
+<li>即将字节流(来自二进制文件或类似字节的对象)转换回对象层次结构</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>通过pickle模块的序列化操作我们<strong>能够将程序中运行的对象信息保存到文件中去</strong>，永久保存</li>
+<li>通过pickle模块的反序列化操作，我们能够<strong>从文件中创建上一次程序保存的对象</strong></li>
+</ol>
+<h5 id="序列化函数-dump"><a href="#序列化函数-dump" class="headerlink" title="序列化函数 dump()"></a>序列化函数 dump()</h5><ul>
+<li>pickle.dump(obj, file, protocol=None, *, fix_imports=True) <ul>
+<li>Write a pickled representation of obj to the open file object file. </li>
+<li>This is equivalent to Pickler(file, protocol).dump(obj).</li>
+<li><strong>将对象的pickle表示写入打开文件对象中</strong></li>
+<li>protocol 是支持的协议</li>
+<li>file 对象必须是fileobj，拥有write方法</li>
+</ul>
+</li>
+<li>pickle.dumps(obj, protocol=None, *, fix_imports=True) <ul>
+<li>Return the pickled representation of the object as a bytes object, instead of writing it to a file.</li>
+<li>返回对象的pickle表示，而不是写入文件<h5 id="反序列化函数-load"><a href="#反序列化函数-load" class="headerlink" title="反序列化函数 load()"></a>反序列化函数 load()</h5></li>
+</ul>
+</li>
+<li>pickle.load(file, *, fix_imports=True, encoding=”ASCII”, errors=”strict”) <ul>
+<li>Read a pickled object representation from the open file object file and return the reconstituted object hierarchy specified therein.</li>
+<li>This is equivalent to Unpickler(file).load().</li>
+<li><strong>从打开的文件对象中读取经过pickle的对象，并且重构Python对象类型</strong></li>
+<li>file 必须提供read()和readline()方法</li>
+</ul>
+</li>
+<li>pickle.loads(bytes_object, *, fix_imports=True, encoding=”ASCII”, errors=”strict”) <ul>
+<li>Read a pickled object hierarchy from a bytes object and return the reconstituted object hierarchy specified therein.</li>
+<li><strong>从字节对象中读取picked的对象，并且重构Python对象类型</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="os-模块-操作系统接口"><a href="#os-模块-操作系统接口" class="headerlink" title="os 模块  操作系统接口"></a>os 模块  操作系统接口</h4><ul>
+<li>This module provides a portable way of using operating system dependent functionality. </li>
+<li>os.popen() 和 os.system()<ul>
+<li>同样可以指向指令</li>
+<li>os.system无法获取返回的结果</li>
+<li>os.popen() 返回一个<em>文件对象*</em>，连接的命令,</li>
+<li>Python 把所有的设备当作文件处理，<strong>文件的重定向</strong><ul>
+<li>返回的对象可以读取和写入，根据mode确定</li>
+<li>返回的是字符串对象，而不是bytes </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>文件夹编程<ul>
+<li>os.listdir()<ul>
+<li>遍历文件夹下的所有文件</li>
+</ul>
+</li>
+<li>os.mkdir()<ul>
+<li>创建一个文件夹</li>
+<li>必须一层层的创建，不能跨层创建</li>
+</ul>
+</li>
+<li>os.rmdir()<ul>
+<li>删除文件夹</li>
+<li>只能删除空目录</li>
+</ul>
+</li>
+<li>os.remove()<ul>
+<li>删除文件</li>
+</ul>
+</li>
+<li>os.rename()<ul>
+<li>重命名</li>
+</ul>
+</li>
+<li>os.path.isfile()</li>
+<li>os.path.isdir()<ul>
+<li>判断是否是文件或目录</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="排列组合"><a href="#排列组合" class="headerlink" title="排列组合"></a>排列组合</h4><ul>
+<li>itertools.permutations(iterable, r=None) <ul>
+<li>返回元素长度为r的排列</li>
+<li>包含 元素相同，顺序不同 的情况</li>
+<li>r  默认None 函数使用全部长度 </li>
+<li>r &lt;= len(iterable)</li>
+</ul>
+</li>
+<li>itertools.combinations(iterable, r) <ul>
+<li>返回元素长度为r的组合</li>
+<li>没有顺序</li>
+</ul>
+</li>
+<li>注意<ul>
+<li>返回的都是<strong>迭代器</strong></li>
+<li>必须使用list转化为list元素</li>
+</ul>
+</li>
+<li>itertools.product(*iterables, repeat=1) <ul>
+<li>生成可迭代对象的笛卡尔积，repeat指元素的个数 </li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Python/" rel="tag"># Python</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/23/Python列表，字典，集合详解/" rel="next" title="Python列表，字典，集合详解">
+                  <i class="fa fa-chevron-left"></i> Python列表，字典，集合详解
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/10/01/Python面对对象编程1/" rel="prev" title="Python面对对象编程1">
+                  Python面对对象编程1 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串的输出"><span class="nav-number">1.</span> <span class="nav-text">字符串的输出</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#标准输入和输出"><span class="nav-number">1.1.</span> <span class="nav-text">标准输入和输出</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件读写"><span class="nav-number"></span> <span class="nav-text">文件读写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件对象-file-object"><span class="nav-number">1.</span> <span class="nav-text">文件对象 file object</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pickle-数据序列和反序列化，常用于持久化，保存到文件"><span class="nav-number"></span> <span class="nav-text">pickle 数据序列和反序列化，常用于持久化，保存到文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#序列化函数-dump"><span class="nav-number">0.1.</span> <span class="nav-text">序列化函数 dump()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#反序列化函数-load"><span class="nav-number">0.2.</span> <span class="nav-text">反序列化函数 load()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#os-模块-操作系统接口"><span class="nav-number">1.</span> <span class="nav-text">os 模块  操作系统接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排列组合"><span class="nav-number">2.</span> <span class="nav-text">排列组合</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/touxiang.jpg"
+      alt="zhao long">
+  <p class="site-author-name" itemprop="name">zhao long</p>
+  <div class="site-description" itemprop="description">自由飞翔的(>^ω^<)喵</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/zhaolong1056" title="GitHub &rarr; https://github.com/zhaolong1056" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:zhao.long1056@foxmail.com" title="E-Mail &rarr; mailto:zhao.long1056@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/ZhaoLong-study/" title="https://www.cnblogs.com/ZhaoLong-study/" rel="noopener" target="_blank">博客园</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://me.csdn.net/weixin_43980677" title="https://me.csdn.net/weixin_43980677" rel="noopener" target="_blank">CSDN</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhao long</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
