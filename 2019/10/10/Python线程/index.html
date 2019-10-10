@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=7.4.0">
+  <link rel="alternate" href="/atom.xml" title="夕阳西下，断肠人在天涯" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","unescape":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="线程 thread 是操作系统能够进行运算调度的最小单位。  它被包含在进程之中，是进程中的实际运作单位。  一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。  在Unix System V及SunOS中也被称为轻量进程（lightweight processes），但轻量进程更多指内核线程（kernel thread），而把用户线程（user t">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python线程">
+<meta property="og:url" content="http://yoursite.com/2019/10/10/Python线程/index.html">
+<meta property="og:site_name" content="夕阳西下，断肠人在天涯">
+<meta property="og:description" content="线程 thread 是操作系统能够进行运算调度的最小单位。  它被包含在进程之中，是进程中的实际运作单位。  一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。  在Unix System V及SunOS中也被称为轻量进程（lightweight processes），但轻量进程更多指内核线程（kernel thread），而把用户线程（user t">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/10/10/Python线程/1cab51f9.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/10/Python线程/87933abf.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/10/Python线程/fcf65b7a.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/10/Python线程/51601ee7.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/10/Python线程/f05b9b61.png">
+<meta property="og:updated_time" content="2019-10-10T07:22:08.936Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python线程">
+<meta name="twitter:description" content="线程 thread 是操作系统能够进行运算调度的最小单位。  它被包含在进程之中，是进程中的实际运作单位。  一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。  在Unix System V及SunOS中也被称为轻量进程（lightweight processes），但轻量进程更多指内核线程（kernel thread），而把用户线程（user t">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/10/Python线程/1cab51f9.png">
+  <link rel="canonical" href="http://yoursite.com/2019/10/10/Python线程/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Python线程 | 夕阳西下，断肠人在天涯</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">夕阳西下，断肠人在天涯</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">好好学习，天天向上</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/10/Python线程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhao long">
+      <meta itemprop="description" content="自由飞翔的(>^ω^<)喵">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夕阳西下，断肠人在天涯">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Python线程
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-10 15:17:47 / 修改时间：15:22:08" itemprop="dateCreated datePublished" datetime="2019-10-10T15:17:47+08:00">2019-10-10</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="线程-thread"><a href="#线程-thread" class="headerlink" title="线程 thread"></a>线程 thread</h3><ul>
+<li><p>是操作系统<strong>能够进行运算调度的最小单位</strong>。</p>
+</li>
+<li><p>它<strong>被包含在进程之中，是进程中的实际运作单位</strong>。</p>
+</li>
+<li><p>一条线程指的是进程中一个单一顺序的控制流，<strong>一个进程中可以并发多个线程，每条线程并行执行不同的任务</strong>。</p>
+</li>
+<li><p>在Unix System V及SunOS中也被称为轻量进程（lightweight processes），但轻量进程更多指内核线程（kernel thread），而把用户线程（user thread）称为线程。</p>
+<a id="more"></a></li>
+<li><p>线程是独立调度和分派的基本单位。</p>
+</li>
+<li><p>线程可以为操作系统内核调度的<strong>内核线程</strong>，如Win32线程；</p>
+</li>
+<li><p>由用户进程自行调度的<strong>用户线程</strong>，如Linux平台的POSIX Thread；</p>
+</li>
+<li><p>或者<strong>由内核与用户进程</strong>，如Windows 7的线程，进行混合调度</p>
+</li>
+<li><p>同一进程中的<strong>多条线程将共享该进程中的全部系统资源</strong>，如虚拟地址空间，文件描述符和信号处理等等。</p>
+</li>
+<li><p>但同一进程中的多个线程<strong>有各自的调用栈（call stack），自己的寄存器环境（register context），自己的线程本地存储（thread-local storage）</strong></p>
+</li>
+</ul>
+<h4 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h4><ul>
+<li>多线程可以充分利用计算机资源，<strong>多线程并发</strong></li>
+<li><img src="/2019/10/10/Python线程/1cab51f9.png" alt="多核CPU"></li>
+<li><img src="/2019/10/10/Python线程/87933abf.png" alt="多线程"></li>
+</ul>
+<h4 id="主线程和次线程"><a href="#主线程和次线程" class="headerlink" title="主线程和次线程"></a>主线程和次线程</h4><ul>
+<li>win7上程序是<strong>进程</strong></li>
+<li><strong>进程由线程组成，分为主线程和次线程</strong><ul>
+<li>主线程：主要的运行线程，<strong>主线程结束，进程也结束</strong> <ul>
+<li><strong>控制着进程的生命周期</strong></li>
+</ul>
+</li>
+<li>次线程：次线程结束，但是<strong>进程依然运行</strong></li>
+</ul>
+</li>
+<li><strong>单线程和多线程</strong><ul>
+<li>单线程所有代码<strong>顺序执行</strong></li>
+<li>多线程可以<strong>加速代码运行</strong><h5 id="线程冲突"><a href="#线程冲突" class="headerlink" title="线程冲突"></a>线程冲突</h5></li>
+</ul>
+</li>
+<li><strong>同时访问一个资源</strong>，会出现<strong>线程冲突</strong><ul>
+<li>多个进程<strong>竞争访问</strong>一个资源</li>
+<li>多个进程对<strong>资源进行修改</strong></li>
+<li>不会报错，但是结果不正确<h5 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h5><ul>
+<li>join(timeout=None) <ul>
+<li>Wait until the thread terminates. </li>
+<li>This blocks the calling thread until the thread whose join() method is called terminates – either normally or through an unhandled exception – or until the optional timeout occurs.</li>
+<li><strong>等待线程终止</strong></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>t.join<ul>
+<li><strong>线程顺序执行</strong></li>
+<li><strong>主程序等待线程执行完成之后，在启动另一个线程</strong></li>
+<li>进程启动，马上，<strong>等待结束</strong></li>
+<li>存在<strong>线程阻塞</strong></li>
+</ul>
+</li>
+<li>t.join, 但是t是<strong>线程列表中的元素</strong><ul>
+<li><strong>主线程等待所有线程执行完成之后，结束进程</strong></li>
+<li>所有线程乱序执行，<strong>不会出现阻塞的情况</strong></li>
+<li><strong>等待所有的线程全部结束</strong></li>
+<li><strong>所有进程全部启动</strong>，<strong>等待结束</strong><h5 id="锁-lock"><a href="#锁-lock" class="headerlink" title="锁 lock"></a>锁 lock</h5></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>在一段时间之内，只有一个线程可以操作变量</strong></li>
+<li><strong>互斥量</strong>  Lock类</li>
+<li>threading.Locak()<ul>
+<li>acquire 锁住<ul>
+<li>参数 1 表示 <strong>独占</strong></li>
+</ul>
+</li>
+<li>release 释放</li>
+<li>注意<ul>
+<li><strong>一定要释放，否则线程一直等待</strong><h6 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h6></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>锁使用不当造成的</strong></li>
+<li><strong>多个锁的情况下</strong>，<strong>锁释放不及时造成</strong><ul>
+<li>多个线程使用<strong>多个锁</strong>，但是都不释放<h5 id="Rlock-Reentrant-Lock-可重入锁"><a href="#Rlock-Reentrant-Lock-可重入锁" class="headerlink" title="Rlock  Reentrant Lock  可重入锁"></a>Rlock  Reentrant Lock  可重入锁</h5></li>
+</ul>
+</li>
+<li>单个锁，被多次使用，但是<strong>没有及时释放</strong></li>
+<li><strong>一个线程对一个资源反复加锁，线程卡住</strong></li>
+<li>lock 的栈 <strong>后进先出</strong></li>
+<li>Rlock 指lock栈结构，<strong>避免单线程死锁</strong></li>
+<li>A reentrant lock must be released by the thread that acquired it.</li>
+<li>Once a thread has acquired a reentrant lock, the same thread may acquire it again without blocking; </li>
+<li>the thread must release it once for each time it has acquired it.<h5 id="创建线程的三种风格"><a href="#创建线程的三种风格" class="headerlink" title="创建线程的三种风格"></a>创建线程的三种风格</h5></li>
+</ul>
+<ol>
+<li>函数<ul>
+<li>使用比较简答</li>
+<li>但是<strong>适合简单操作</strong></li>
+<li>使用_thread</li>
+</ul>
+</li>
+<li>类的继承<ul>
+<li>适合比较复杂的操作</li>
+<li>使用threading</li>
+</ul>
+</li>
+<li>类的构造函数<ul>
+<li>theading.Thead(target=函数名,args=(参数列表)).start()<h5 id="限定线程的数量"><a href="#限定线程的数量" class="headerlink" title="限定线程的数量"></a>限定线程的数量</h5></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>由于服务器内存有限，必须限制线程的使用<br>####### 通过信号量限制</li>
+<li>threading.Semaphore(2) 限制<strong>同时线程</strong>的最大数量是2</li>
+<li><strong>并发线程数量</strong><br>####### 锁定线程数量</li>
+<li>threading.Barrier(2)</li>
+<li><strong>必须凑够2个线程才能一起执行</strong>,<strong>其他线程不会执行</strong></li>
+</ul>
+<h4 id="线程通信"><a href="#线程通信" class="headerlink" title="线程通信"></a>线程通信</h4><ul>
+<li>线程有顺序</li>
+</ul>
+<ol>
+<li><p>事件</p>
+<ul>
+<li><img src="/2019/10/10/Python线程/fcf65b7a.png" alt="事件原理"></li>
+<li>set() 触发事件</li>
+<li>wait 等待set信号</li>
+<li>clean 重置线程</li>
+</ul>
+</li>
+<li><p>condition</p>
+<ul>
+<li>Lock 和 event 的综合体，除<strong>基本的锁外，还提供yield功能</strong></li>
+<li><strong>既解决通信又解决同步</strong></li>
+<li>cond = threading.Condition()<ul>
+<li>with conda: <strong>使用条件变量</strong>  锁的变换<ul>
+<li><strong>先执行的线程将conda锁定</strong></li>
+<li><strong>另一个线程处于等待状态</strong></li>
+</ul>
+</li>
+<li>conda.wait()  # 等待conda<ul>
+<li><strong>资源释放</strong></li>
+<li><strong>线程变为等待状态</strong></li>
+<li><strong>另一个线程处理锁定状态</strong></li>
+<li><strong>接收到信号之后，运行之后的代码，到下一次wait位置停止</strong></li>
+</ul>
+</li>
+<li>conda.notify()  # conda发送信号<ul>
+<li><strong>发送通知</strong></li>
+<li><strong>线程接受通知，锁定执行</strong></li>
+<li><strong>另一个线程处理等待状态</strong></li>
+<li><strong>只能发送信号，不能让线程等待，只能告诉wait的状态</strong></li>
+</ul>
+</li>
+<li><img src="/2019/10/10/Python线程/51601ee7.png" alt="cond"></li>
+<li>注意： 锁会<strong>自动过度</strong></li>
+</ul>
+</li>
+</ul>
+<h5 id="生产者和消费者"><a href="#生产者和消费者" class="headerlink" title="生产者和消费者"></a>生产者和消费者</h5><ul>
+<li>生产者 多个</li>
+<li>消费者 多个</li>
+<li>队列  <strong>资源 冲突</strong></li>
+<li><img src="/2019/10/10/Python线程/f05b9b61.png" alt="生产者消费者模式"></li>
+</ul>
+<h5 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h5><ul>
+<li>多个线程</li>
+<li>批量的管理，驾驭</li>
+<li>前提:<strong>假定线程之间没有冲突</strong></li>
+<li>import threadpool</li>
+<li>构造线程队列请求 makeRequests</li>
+<li>将线程请求压入线程池 putRequest</li>
+</ul>
+</li>
+</ol>
+<h5 id="延时线程"><a href="#延时线程" class="headerlink" title="延时线程"></a>延时线程</h5><ul>
+<li><strong>定时线程</strong></li>
+<li>threading.Timer(5, go)  5 秒之后执行go</li>
+</ul>
+<h5 id="with"><a href="#with" class="headerlink" title="with"></a>with</h5><ul>
+<li><strong>根据上下文环境自动打开释放</strong> 锁</li>
+<li>with mutex</li>
+<li>with open()</li>
+<li>with conda</li>
+</ul>
+<h5 id="后台线程-前台线程"><a href="#后台线程-前台线程" class="headerlink" title="后台线程 前台线程"></a>后台线程 前台线程</h5><ul>
+<li>前台线程：主线程必须等待前台<ul>
+<li>threading.Thread 默认前台进程</li>
+</ul>
+</li>
+<li>后台线程：主线程不需要等待其他线程<ul>
+<li>setDaemon(True) 将前台线程转为后台线程</li>
+</ul>
+</li>
+</ul>
+<h5 id="全局变量可以用于在线程之间传递数据"><a href="#全局变量可以用于在线程之间传递数据" class="headerlink" title="全局变量可以用于在线程之间传递数据"></a>全局变量可以用于在线程之间传递数据</h5><ul>
+<li>全局变量多个线程都可以读取</li>
+<li>每个线程都有独立的空间   threading.local() 分配一个独立的存储空间</li>
+</ul>
+<p>:</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Python/" rel="tag"># Python</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/10/Python递归，深度遍历，广度遍历/" rel="next" title="Python递归，深度遍历，广度遍历">
+                  <i class="fa fa-chevron-left"></i> Python递归，深度遍历，广度遍历
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/10/10/Python进程/" rel="prev" title="Python进程">
+                  Python进程 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程-thread"><span class="nav-number">1.</span> <span class="nav-text">线程 thread</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程"><span class="nav-number">1.1.</span> <span class="nav-text">多线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主线程和次线程"><span class="nav-number">1.2.</span> <span class="nav-text">主线程和次线程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#线程冲突"><span class="nav-number">1.2.1.</span> <span class="nav-text">线程冲突</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程"><span class="nav-number">1.2.2.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#锁-lock"><span class="nav-number">1.2.3.</span> <span class="nav-text">锁 lock</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#死锁"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">死锁</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Rlock-Reentrant-Lock-可重入锁"><span class="nav-number">1.2.4.</span> <span class="nav-text">Rlock  Reentrant Lock  可重入锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建线程的三种风格"><span class="nav-number">1.2.5.</span> <span class="nav-text">创建线程的三种风格</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#限定线程的数量"><span class="nav-number">1.2.6.</span> <span class="nav-text">限定线程的数量</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程通信"><span class="nav-number">1.3.</span> <span class="nav-text">线程通信</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#生产者和消费者"><span class="nav-number">1.3.1.</span> <span class="nav-text">生产者和消费者</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程池"><span class="nav-number">1.3.2.</span> <span class="nav-text">线程池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#延时线程"><span class="nav-number">1.3.3.</span> <span class="nav-text">延时线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#with"><span class="nav-number">1.3.4.</span> <span class="nav-text">with</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#后台线程-前台线程"><span class="nav-number">1.3.5.</span> <span class="nav-text">后台线程 前台线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#全局变量可以用于在线程之间传递数据"><span class="nav-number">1.3.6.</span> <span class="nav-text">全局变量可以用于在线程之间传递数据</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/touxiang.jpg"
+      alt="zhao long">
+  <p class="site-author-name" itemprop="name">zhao long</p>
+  <div class="site-description" itemprop="description">自由飞翔的(>^ω^<)喵</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/zhaolong1056" title="GitHub &rarr; https://github.com/zhaolong1056" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:zhao.long1056@foxmail.com" title="E-Mail &rarr; mailto:zhao.long1056@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/ZhaoLong-study/" title="https://www.cnblogs.com/ZhaoLong-study/" rel="noopener" target="_blank">博客园</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://me.csdn.net/weixin_43980677" title="https://me.csdn.net/weixin_43980677" rel="noopener" target="_blank">CSDN</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhao long</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
